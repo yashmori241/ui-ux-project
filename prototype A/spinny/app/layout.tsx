@@ -42,8 +42,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
-      <body className="font-body bg-bg-primary text-text-primary antialiased">
+    <html lang="en" className={`${playfair.variable} ${inter.variable}`} suppressHydrationWarning>
+      <body className="font-body bg-bg-primary text-text-primary antialiased" suppressHydrationWarning>
         <LenisProvider>
           <CustomCursor />
           <ScrollProgress />

@@ -51,9 +51,9 @@ export function MagneticButton({
   const baseStyles = 'inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold font-body rounded-card transition-all duration-300 ease-luxury relative overflow-hidden';
 
   const variantStyles = {
-    gold: 'bg-brand-gold text-bg-primary hover:shadow-[0_0_30px_rgba(201,168,76,0.3)]',
-    ghost: 'border border-white/20 text-text-primary hover:border-brand-gold hover:text-brand-gold',
-    outline: 'border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-bg-primary',
+    gold: 'bg-brand-gold text-bg-primary hover:shadow-[0_0_40px_rgba(197,160,89,0.4)]',
+    ghost: 'border border-white/20 text-text-primary hover:border-brand-gold/30 hover:text-brand-gold',
+    outline: 'border border-brand-gold-muted text-brand-gold hover:bg-brand-gold hover:text-bg-primary',
   };
 
   return (

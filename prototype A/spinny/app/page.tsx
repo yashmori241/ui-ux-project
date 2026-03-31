@@ -75,14 +75,14 @@ function HeroSection() {
   return (
     <section ref={heroRef} className="relative w-full overflow-hidden" style={{ height: '100svh' }}>
       {/* Background Image */}
-      <div ref={imgRef} className="absolute inset-0 w-full h-[130%] -top-[15%]">
+      <div ref={imgRef} className="absolute inset-0 w-full h-[140%] -top-[20%] overflow-hidden" suppressHydrationWarning>
         <Image
           src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1920&q=80"
           alt="Premium dark car on dramatic background"
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover animate-ken-burns"
         />
       </div>
 
@@ -91,35 +91,75 @@ function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(105deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.6) 55%, rgba(10,10,10,0.15) 100%)',
+            'linear-gradient(105deg, rgba(5,5,5,0.98) 0%, rgba(5,5,5,0.7) 45%, rgba(5,5,5,0.2) 100%)',
         }}
       />
 
       {/* Content */}
       <div className="relative z-10 h-full flex items-center">
         <div className="max-w-[1400px] mx-auto px-6 w-full">
-          <div className="max-w-[680px]">
-            <p className="hero-label text-label text-brand-gold mb-6">
-              INDIA&apos;S MOST TRUSTED USED CAR PLATFORM
-            </p>
-            <h1 className="hero-title relative">
-              <span className="hero-line-1 text-display-xl block tracking-[-0.03em] leading-[0.95]" style={{ textShadow: '0 10px 40px rgba(0,0,0,0.5)' }}>Find Your</span>
-              <span className="hero-line-2 text-display-xl block tracking-[-0.03em] leading-[0.95]" style={{ textShadow: '0 10px 40px rgba(0,0,0,0.5)' }}>Perfect Car.</span>
+          <div className="max-w-[850px]">
+            <div className="hero-label flex items-center gap-4 mb-8 opacity-60">
+               <div className="w-12 h-[1px] bg-brand-gold/50" />
+               <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold">PORTFOLIO REDEFINED</p>
+            </div>
+            
+            <h1 className="hero-title relative mb-14">
+              <span className="hero-line-1 text-display-xl block tracking-[-0.06em] leading-[0.85] text-text-primary" style={{ textShadow: '0 20px 80px rgba(0,0,0,0.9)' }}>
+                Find Your
+              </span>
+              <span className="hero-line-2 text-display-xl block tracking-[-0.04em] leading-[0.85] italic font-display gold-text-gradient py-4" style={{ textShadow: '0 20px 100px rgba(197,160,89,0.4)' }}>
+                Luxury Heritage
+              </span>
+              <span className="hero-line-3 text-display-xl block tracking-[-0.06em] leading-[0.85] text-text-primary" style={{ textShadow: '0 20px 80px rgba(0,0,0,0.9)' }}>
+                Portfolio<span className="text-brand-gold">.</span>
+              </span>
             </h1>
-            <p className="hero-sub text-lg text-text-muted mt-8 font-body max-w-[480px]" style={{ fontWeight: 300, lineHeight: 1.6 }}>
-              India&apos;s most trusted certified used car platform. <br className="hidden md:block" />
-              Guaranteed Quality · Delivered to Your Door.
+
+            <p className="hero-sub text-lg text-text-muted mt-12 font-body max-w-[580px] tracking-wide leading-relaxed opacity-70">
+              Curating India&apos;s most prestigious pre-owned automotive assets. 
+              Each vehicle is a testament to engineering excellence and certified provenance.
             </p>
-            <div className="hero-ctas flex gap-4 mt-10 flex-wrap">
+
+            <div className="hero-ctas flex gap-8 mt-16 flex-wrap items-center">
               <Link href="/browse">
-                <MagneticButton variant="gold">
-                  Browse Cars
-                  <span className="ml-1">→</span>
+                <MagneticButton variant="gold" className="px-12 h-16 text-[10px] font-bold uppercase tracking-[0.3em] rounded-full">
+                  ACCESS COLLECTION
                 </MagneticButton>
               </Link>
               <Link href="/sell">
-                <MagneticButton variant="ghost">Sell Your Car</MagneticButton>
+                <MagneticButton variant="ghost" className="px-12 h-16 text-[10px] font-bold uppercase tracking-[0.3em] border-white/10 hover:border-brand-gold/40 rounded-full">
+                  INITIALIZE ACQUISITION
+                </MagneticButton>
               </Link>
+            </div>
+            
+            {/* Floating Asset Terminal */}
+            <div className="hidden xl:flex absolute top-1/2 right-[5%] -translate-y-1/2 glass-elite p-12 flex-col gap-10 luxury-border rounded-[48px] w-[340px] animate-in fade-in duration-1000 delay-700 z-20 shadow-[0_40px_100px_rgba(0,0,0,0.8)]">
+               <div className="flex items-center justify-between">
+                 <div className="w-14 h-14 rounded-full border border-brand-gold/20 flex items-center justify-center relative">
+                   <div className="w-2 h-2 rounded-full bg-brand-gold shadow-[0_0_20px_rgba(197,160,89,0.8)]" />
+                   <div className="absolute inset-0 rounded-full border border-brand-gold/40 animate-ping opacity-20" />
+                 </div>
+                 <span className="text-[9px] font-mono text-brand-gold/60 uppercase tracking-widest">LIVE DATA FEED</span>
+               </div>
+               
+               <div>
+                 <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold/60 mb-2">AVAILABLE ASSETS</p>
+                 <p className="text-5xl font-display font-black text-white tracking-tighter">750<span className="text-brand-gold font-light opacity-50">+</span></p>
+                 <p className="text-xs text-text-muted mt-4 font-mono leading-relaxed opacity-60">Verified portfolios under institutional management.</p>
+               </div>
+
+               <div className="pt-8 border-t border-white/5 space-y-4">
+                 <div className="flex justify-between items-center text-[10px] font-mono tracking-widest">
+                   <span className="text-text-subtle">PROVENANCE</span>
+                   <span className="text-brand-gold">CERTIFIED</span>
+                 </div>
+                 <div className="flex justify-between items-center text-[10px] font-mono tracking-widest">
+                   <span className="text-text-subtle">ACQUISITION</span>
+                   <span className="text-brand-gold">IMMEDIATE</span>
+                 </div>
+               </div>
             </div>
           </div>
         </div>
@@ -171,28 +211,29 @@ function TrustNumbers() {
   }, []);
 
   const stats = [
-    { number: 200000, suffix: '+', label: 'Happy Customers', display: '2,00,000' },
-    { number: 10000, suffix: '+', label: 'Cars Available', display: '10,000' },
-    { number: 200, suffix: '', label: 'Quality Checks', display: '200' },
-    { number: 20, suffix: '+', label: 'Cities', display: '20' },
+    { number: 200000, suffix: '+', label: 'Authorized Acquisitions', display: '2,00,000' },
+    { number: 10000, suffix: '+', label: 'Portfolio Assets', display: '10,000' },
+    { number: 200, suffix: '', label: 'Technical Verifications', display: '200' },
+    { number: 20, suffix: '+', label: 'Operational Hubs', display: '20' },
   ];
 
   return (
-    <section ref={sectionRef} className="bg-bg-primary py-32 overflow-hidden">
+    <section ref={sectionRef} className="bg-bg-primary py-40 overflow-hidden border-y border-white/5 relative">
+      <div className="absolute inset-0 bg-brand-gold/[0.02] pointer-events-none" />
       <div className="max-w-[1400px] mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
           {stats.map((stat, i) => (
             <div
               key={stat.label}
-              className="glass-gold rounded-3xl p-10 text-center glow-accent"
+              className="glass-elite rounded-[48px] p-12 text-center relative overflow-hidden group hover:luxury-border transition-all duration-1000 ease-luxury shadow-[0_30px_80px_rgba(0,0,0,0.5)]"
             >
-              <div className="text-stat gold-text-gradient font-black">
+              <div className="text-stat gold-text-gradient font-display font-black tracking-tighter mb-6">
                 <span className="stat-number" data-target={stat.number}>
                   0
                 </span>
-                <span>{stat.suffix}</span>
+                <span className="text-3xl opacity-50 ml-1">{stat.suffix}</span>
               </div>
-              <p className="text-label text-text-muted mt-4 font-bold tracking-widest leading-loose">{stat.label}</p>
+              <p className="text-[9px] font-bold uppercase tracking-[0.4em] text-text-muted group-hover:text-brand-gold transition-colors duration-700">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -204,27 +245,27 @@ function TrustNumbers() {
 const howItWorksSteps = [
   {
     num: '01',
-    title: 'Browse',
-    desc: '10,000+ certified cars at your fingertips. Filter by brand, budget, body type, and more.',
-    icon: <Search className="w-10 h-10 text-brand-gold" />,
+    title: 'Discovery',
+    desc: 'Access a curated portfolio of certified automotive assets, rigorously vetted for institutional standards.',
+    icon: <Search className="w-8 h-8 text-brand-gold/60" />,
   },
   {
     num: '02',
-    title: 'Inspect',
-    desc: 'Every car verified with a 200-point quality check. No hidden damages, no surprises.',
-    icon: <CheckCircle className="w-10 h-10 text-brand-gold" />,
+    title: 'Verification',
+    desc: 'Every asset undergoes a 200-point forensic technical verification to ensure flawless heritage.',
+    icon: <CheckCircle className="w-8 h-8 text-brand-gold/60" />,
   },
   {
     num: '03',
-    title: 'Test Drive',
-    desc: 'We bring the car to you. Test drive at your doorstep, no pressure.',
-    icon: <Home className="w-10 h-10 text-brand-gold" />,
+    title: 'Assessment',
+    desc: 'Experience dynamic dynamic assessments at your preferred location, engineered for absolute transparency.',
+    icon: <Home className="w-8 h-8 text-brand-gold/60" />,
   },
   {
     num: '04',
-    title: 'Own It',
-    desc: 'Seamless paperwork. RC transfer handled. Delivered to your door with a 5-day money-back guarantee.',
-    icon: <Key className="w-10 h-10 text-brand-gold" />,
+    title: 'Succession',
+    desc: 'Seamless ownership transition with institutional-grade handling of paperwork and RC protocols.',
+    icon: <Key className="w-8 h-8 text-brand-gold/60" />,
   },
 ];
 
@@ -254,14 +295,25 @@ function HowItWorks() {
             if (i < howItWorksSteps.length - 1) {
               tl.to(
                 `#step-${i}`,
-                { opacity: 0, yPercent: -20, duration: 0.3 },
+                { opacity: 0, yPercent: -15, scale: 0.95, duration: 0.3, ease: 'power2.inOut' },
                 i * 0.25 + 0.2
               );
               tl.from(
                 `#step-${i + 1}`,
-                { opacity: 0, yPercent: 20, duration: 0.3 },
+                { opacity: 0, yPercent: 15, scale: 1.05, duration: 0.3, ease: 'power2.out' },
                 i * 0.25 + 0.25
               );
+            }
+          });
+
+          // Dynamic Background Glow
+          gsap.to('.how-it-works-glow', {
+            x: (i) => i * 100, // Moves across steps
+            scrollTrigger: {
+              trigger: '.how-it-works',
+              start: 'top top',
+              end: '+=300%',
+              scrub: 2,
             }
           });
         },
@@ -289,15 +341,21 @@ function HowItWorks() {
   return (
     <div ref={containerRef}>
       {/* Desktop: scrolljack */}
-      <div className="how-it-works hidden md:block" style={{ height: '500vh' }}>
+      <div className="how-it-works hidden md:block" style={{ height: '400vh' }}>
         <div
-          className="how-it-works-inner bg-bg-primary flex items-center"
+          className="how-it-works-inner bg-bg-primary flex items-center relative overflow-hidden"
           style={{ height: '100vh' }}
         >
-          <div className="max-w-[1400px] mx-auto px-6 w-full">
-            <p className="text-label text-brand-gold mb-4">HOW IT WORKS</p>
-            <h2 className="text-display-lg mb-16">
-              Four Simple Steps to<br />Your Dream Car.
+          {/* Dynamic Background Glow */}
+          <div className="how-it-works-glow absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-brand-gold/5 blur-[150px] rounded-full pointer-events-none" />
+          
+          <div className="max-w-[1400px] mx-auto px-6 w-full relative z-10">
+            <div className="flex items-center gap-4 mb-6">
+               <div className="w-12 h-[1px] bg-brand-gold/30" />
+               <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold">THE CONCIERGE JOURNEY</p>
+            </div>
+            <h2 className="text-display-lg mb-20 tracking-tighter">
+              A Refined Path to<br />Institutional Quality<span className="text-brand-gold">.</span>
             </h2>
             <div className="relative" style={{ minHeight: 300 }}>
               {howItWorksSteps.map((step, i) => (
@@ -414,16 +472,25 @@ function FeaturedCars() {
       : [...featuredCars, ...cars.filter((c) => !c.trending)].slice(0, 6);
 
   return (
-    <section className="py-24 bg-bg-primary">
-      <div className="max-w-[1400px] mx-auto px-6 mb-12">
-        <p className="text-label text-brand-gold mb-4">FEATURED</p>
-        <div className="flex items-end justify-between">
-          <h2 className="text-display-md">Handpicked for You.</h2>
+    <section className="py-32 bg-bg-primary border-t border-white/5 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-gold/20 to-transparent" />
+      
+      <div className="max-w-[1400px] mx-auto px-6 mb-16">
+        <div className="flex items-center gap-4 mb-8 opacity-60">
+           <div className="w-12 h-[1px] bg-brand-gold/50" />
+           <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold">ACQUISITION PORTFOLIO</p>
+        </div>
+        <div className="flex items-end justify-between gap-12">
+          <h2 className="text-display-lg tracking-tighter leading-[0.9]">
+            Selected <br />
+            <span className="italic font-display gold-text-gradient">Heritage Assets</span><span className="text-brand-gold">.</span>
+          </h2>
           <Link
             href="/browse"
-            className="hidden md:inline-flex text-sm text-brand-gold hover:underline font-body"
+            className="hidden md:inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-brand-gold hover:text-white transition-all group"
           >
-            View All Cars →
+            DISCOVER ENTIRE REPOSITORY
+            <div className="w-8 h-[1px] bg-brand-gold/30 group-hover:w-12 group-hover:bg-white transition-all" />
           </Link>
         </div>
       </div>
@@ -495,48 +562,31 @@ function SpinnyAssured() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 relative overflow-hidden"
-      style={{
-        background:
-          '#0D0D0D radial-gradient(ellipse at center, rgba(201,168,76,0.07) 0%, transparent 60%)',
-      }}
+      className="py-32 relative overflow-hidden border-y border-white/5"
     >
-      <div className="max-w-[1400px] mx-auto px-6 text-center">
-        {/* Badge */}
-        <div className="mx-auto mb-12 relative w-48 h-48">
-          <svg viewBox="0 0 200 200" className="w-full h-full animate-spin-slow">
-            <defs>
-              <path
-                id="circle-text"
-                d="M 100, 100 m -75, 0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0"
-              />
-            </defs>
-            <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(201,168,76,0.2)" strokeWidth="1" />
-            <text className="text-[11px] fill-brand-gold tracking-[0.3em] uppercase">
-              <textPath href="#circle-text">
-                SPINNY ASSURED ® · SPINNY ASSURED ® · SPINNY ASSURED ® ·{' '}
-              </textPath>
-            </text>
-          </svg>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-4xl">✓</span>
-          </div>
+      <div className="max-w-[1400px] mx-auto px-6">
+        <div className="text-center mb-24">
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold mb-6">THE GOLD STANDARD</p>
+            <h2 className="text-display-lg mb-8 tracking-tighter">Uncompromising Quality.</h2>
+            <p className="text-text-muted text-lg max-w-2xl mx-auto font-body leading-relaxed opacity-80">
+              Every vehicle in our collection undergoes a rigorous 200-point mechanical 
+              and physical evaluation to meet our institutional standards.
+            </p>
         </div>
 
-        <h2 className="text-display-md mb-4">The Spinny Promise</h2>
-        <p className="text-text-muted text-lg mb-16 max-w-xl mx-auto font-body">
-          Every car on Spinny comes with guarantees that give you complete peace of mind.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((f) => (
             <div
               key={f.title}
-              className="assured-feature bg-bg-surface border border-border-default rounded-card p-6 text-center"
+              className="assured-feature glass rounded-[40px] p-10 text-left luxury-border-transparent hover:luxury-border transition-all duration-700 group"
             >
-              <div className="text-4xl mb-4">{f.icon}</div>
-              <h3 className="font-display font-bold text-text-primary mb-2">{f.title}</h3>
-              <p className="text-text-muted text-sm leading-relaxed">{f.desc}</p>
+              <div className="w-14 h-14 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform duration-500">
+                {f.icon}
+              </div>
+              <h3 className="text-xl font-display font-black text-text-primary mb-4 tracking-tight">{f.title}</h3>
+              <p className="text-text-muted text-sm leading-relaxed opacity-70 group-hover:opacity-100 transition-opacity">
+                {f.desc}
+              </p>
             </div>
           ))}
         </div>
@@ -692,17 +742,49 @@ function CTASection() {
 
 /* ===================== HOME PAGE ===================== */
 export default function HomePage() {
+  useEffect(() => {
+    // Global Reveal Observer for "Luxury" Entrance
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach((el) => {
+      gsap.from(el, {
+        opacity: 0,
+        y: 40,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 90%',
+          toggleActions: 'play none none none',
+        },
+      });
+    });
+  }, []);
+
   return (
-    <>
+    <main className="bg-bg-primary">
       <HeroSection />
-      <MarqueeStrip />
-      <TrustNumbers />
+      <div className="reveal">
+        <MarqueeStrip />
+      </div>
+      <div className="reveal">
+        <TrustNumbers />
+      </div>
       <HowItWorks />
-      <FeaturedCars />
-      <SpinnyAssured />
-      <Testimonials />
-      <BrandGrid />
-      <CTASection />
-    </>
+      <div className="reveal">
+        <FeaturedCars />
+      </div>
+      <div className="reveal">
+        <SpinnyAssured />
+      </div>
+      <div className="reveal">
+        <Testimonials />
+      </div>
+      <div className="reveal">
+        <BrandGrid />
+      </div>
+      <div className="reveal">
+        <CTASection />
+      </div>
+    </main>
   );
 }

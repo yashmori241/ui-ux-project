@@ -12,19 +12,26 @@ export default function NotFound() {
         </span>
       </div>
 
-      <div className="relative z-10 text-center px-6">
-        <p className="text-label text-brand-gold mb-6">PAGE NOT FOUND</p>
-        <h1 className="text-display-lg mb-4">This Road Doesn&apos;t Exist.</h1>
-        <p className="text-text-muted text-lg mb-10 font-body">
-          Let&apos;s get you back on track.
+      <div className="relative z-10 text-center px-12">
+        <div className="flex items-center justify-center gap-4 mb-8 opacity-40">
+           <div className="w-12 h-[1px] bg-brand-gold/50" />
+           <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold">ERROR PROTOCOL 404</p>
+           <div className="w-12 h-[1px] bg-brand-gold/50" />
+        </div>
+        <h1 className="text-display-lg mb-8 tracking-tighter leading-[0.9]">
+           Asset Not <br />
+           <span className="italic font-display gold-text-gradient">Located</span><span className="text-brand-gold">.</span>
+        </h1>
+        <p className="text-text-muted text-lg font-body leading-relaxed max-w-sm mx-auto mb-12 opacity-60">
+          The requested coordinate does not exist within our current portfolio. 
+          Return to the executive suite to continue your acquisition.
         </p>
         <Link
           href="/"
-          className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-gold text-bg-primary font-semibold rounded-card
-            hover:shadow-[0_0_30px_rgba(201,168,76,0.3)] transition-all"
+          className="inline-flex items-center gap-4 px-10 py-5 bg-brand-gold text-bg-primary font-bold text-[10px] uppercase tracking-[0.3em] rounded-full hover:shadow-[0_0_40px_rgba(197,160,89,0.4)] transition-all"
         >
-          Back to Home
-          <span>→</span>
+          Return to Portfolio
+          <div className="w-6 h-[1.5px] bg-bg-primary/50" />
         </Link>
       </div>
 

@@ -94,206 +94,251 @@ export default function SellPage() {
   }, [step, estimatedPrice]);
 
   return (
-    <div className="pt-[72px] min-h-screen bg-bg-primary">
-      <div className="max-w-2xl mx-auto px-6 py-16">
-        <p className="text-label text-brand-gold mb-4">SELL YOUR CAR</p>
-        <h1 className="text-display-md mb-8">Get the Best Price.</h1>
-
-        {/* Progress Bar */}
-        <div className="flex items-center gap-2 mb-12">
-          {steps.map((s, i) => (
-            <div key={s} className="flex items-center gap-2 flex-1">
-              <div className="flex items-center gap-2">
-                <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-500
-                    ${i <= step ? 'bg-brand-gold text-bg-primary' : 'bg-bg-surface border border-border-default text-text-muted'}`}
-                >
-                  {i < step ? <Check size={14} /> : i + 1}
+    <div className="pt-[80px] min-h-screen bg-bg-primary relative overflow-hidden">
+      {/* Background Atmosphere */}
+      <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-brand-gold/[0.03] blur-[180px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      
+      <div className="max-w-[1400px] mx-auto px-6 py-20 flex flex-col lg:flex-row gap-24 items-start">
+        {/* Left: Editorial Content Asset */}
+        <div className="lg:w-1/2 lg:sticky lg:top-[140px]">
+           <div className="flex items-center gap-4 mb-10 opacity-60">
+             <div className="w-12 h-[1px] bg-brand-gold/50" />
+             <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold">VALUATION CONCIERGE</p>
+           </div>
+           
+           <h1 className="text-display-lg mb-10 tracking-tighter leading-[0.85]">
+             Automotive Portfolio <br />
+             <span className="italic font-display gold-text-gradient">Liquidation Protocol</span><span className="text-brand-gold">.</span>
+           </h1>
+           
+           <p className="text-text-muted text-lg font-body max-w-lg leading-relaxed opacity-70 font-light mb-16">
+             The definitive gateway for transitioning high-value automotive assets. 
+             Experience a sophisticated liquidation process engineered for precision, transparency, and immediate fiscal settlement.
+           </p>
+           
+           <div className="space-y-10">
+              {[
+                { title: 'REAL-TIME VALUATION', desc: 'Instant preliminary assessment based on global market telemetry.' },
+                { title: 'TECHNICAL VERIFICATION', desc: 'Forensic doorstep evaluation conducted by master technicians.' },
+                { title: 'FISCAL SETTLEMENT', desc: 'Immediate fund securement upon protocol verification.' }
+              ].map((item, i) => (
+                <div key={i} className="flex gap-6 items-start group">
+                   <div className="w-6 h-6 rounded-full border border-brand-gold/20 flex items-center justify-center mt-1 group-hover:border-brand-gold/50 transition-all duration-1000">
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-gold shadow-[0_0_10px_rgba(197,160,89,0.5)]" />
+                   </div>
+                   <div>
+                     <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-gold/80 mb-2">{item.title}</h4>
+                     <p className="text-sm text-text-muted opacity-60 font-medium group-hover:opacity-100 transition-opacity duration-700">{item.desc}</p>
+                   </div>
                 </div>
-                <span className={`text-xs hidden sm:inline ${i <= step ? 'text-brand-gold' : 'text-text-muted'}`}>
-                  {s}
-                </span>
-              </div>
-              {i < steps.length - 1 && (
-                <div className="flex-1 h-[2px] bg-bg-surface2 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-brand-gold transition-all duration-700 ease-luxury"
-                    style={{ width: i < step ? '100%' : '0%' }}
-                  />
-                </div>
-              )}
-            </div>
-          ))}
+              ))}
+           </div>
         </div>
 
-        <div ref={stepRef}>
-          {/* Step 1: Car Details */}
-          {step === 0 && (
-            <form onSubmit={handleStep1} className="space-y-6">
-              <div>
-                <label className="text-xs text-text-muted mb-2 block">Brand</label>
-                <select
-                  {...carForm.register('brand')}
-                  className="w-full bg-bg-surface border border-border-default rounded-card px-4 py-3 text-sm text-text-primary
-                    focus:border-brand-gold focus:outline-none transition-colors"
+        {/* Right: Liquidation Terminal Module */}
+        <div className="lg:w-1/2 w-full max-w-xl glass-elite p-12 lg:p-16 luxury-border rounded-[48px] relative overflow-hidden shadow-[0_60px_120px_rgba(0,0,0,0.8)]">
+           <div className="absolute top-0 right-0 w-80 h-80 bg-brand-gold/[0.03] blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+
+          {/* Verification Progress */}
+          <div className="flex items-center gap-4 mb-16">
+            {steps.map((s, i) => (
+              <div key={s} className="flex items-center gap-4 flex-1">
+                <div 
+                  className={`w-10 h-10 rounded-full flex items-center justify-center text-[10px] font-mono font-bold transition-all duration-1000
+                    ${i <= step ? 'bg-brand-gold text-bg-primary shadow-[0_0_20px_rgba(197,160,89,0.4)]' : 'bg-white/5 border border-white/5 text-text-muted/40'}`}
                 >
-                  <option value="">Select Brand</option>
-                  {brands.map((b) => (<option key={b} value={b}>{b}</option>))}
-                </select>
-                {carForm.formState.errors.brand && (
-                  <p className="text-brand-red text-xs mt-1">{carForm.formState.errors.brand.message as string}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="text-xs text-text-muted mb-2 block">Model</label>
-                <input
-                  {...carForm.register('model')}
-                  placeholder="e.g. Creta SX(O)"
-                  className="w-full bg-bg-surface border border-border-default rounded-card px-4 py-3 text-sm text-text-primary
-                    focus:border-brand-gold focus:outline-none transition-colors placeholder:text-text-subtle"
-                />
-                {carForm.formState.errors.model && (
-                  <p className="text-brand-red text-xs mt-1">{carForm.formState.errors.model.message as string}</p>
-                )}
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-xs text-text-muted mb-2 block">Year</label>
-                  <select
-                    {...carForm.register('year')}
-                    className="w-full bg-bg-surface border border-border-default rounded-card px-4 py-3 text-sm text-text-primary
-                      focus:border-brand-gold focus:outline-none transition-colors"
-                  >
-                    <option value="">Year</option>
-                    {Array.from({ length: 15 }, (_, i) => 2024 - i).map((y) => (
-                      <option key={y} value={y}>{y}</option>
-                    ))}
-                  </select>
+                  {i < step ? <Check size={16} /> : `0${i + 1}`}
                 </div>
-                <div>
-                  <label className="text-xs text-text-muted mb-2 block">Variant</label>
-                  <input
-                    {...carForm.register('variant')}
-                    placeholder="e.g. Diesel AT"
-                    className="w-full bg-bg-surface border border-border-default rounded-card px-4 py-3 text-sm text-text-primary
-                      focus:border-brand-gold focus:outline-none transition-colors placeholder:text-text-subtle"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="text-xs text-text-muted mb-2 block">Kilometers Driven</label>
-                <input
-                  {...carForm.register('mileage')}
-                  placeholder="e.g. 25000"
-                  className="w-full bg-bg-surface border border-border-default rounded-card px-4 py-3 text-sm text-text-primary
-                    focus:border-brand-gold focus:outline-none transition-colors placeholder:text-text-subtle"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full py-3.5 bg-brand-gold text-bg-primary font-semibold rounded-card
-                  hover:shadow-[0_0_30px_rgba(201,168,76,0.3)] transition-all flex items-center justify-center gap-2"
-              >
-                Continue <ChevronRight size={16} />
-              </button>
-            </form>
-          )}
-
-          {/* Step 2: Contact */}
-          {step === 1 && (
-            <div className="space-y-6">
-              <div>
-                <label className="text-xs text-text-muted mb-2 block">Your Name</label>
-                <input
-                  {...contactForm.register('name')}
-                  placeholder="Full Name"
-                  className="w-full bg-bg-surface border border-border-default rounded-card px-4 py-3 text-sm text-text-primary
-                    focus:border-brand-gold focus:outline-none transition-colors placeholder:text-text-subtle"
-                />
-                {contactForm.formState.errors.name && (
-                  <p className="text-brand-red text-xs mt-1">{contactForm.formState.errors.name.message as string}</p>
+                {i < steps.length - 1 && (
+                  <div className="flex-1 h-[1px] bg-white/5 relative">
+                    <div 
+                      className="absolute inset-0 bg-brand-gold transition-all duration-1000 ease-luxury"
+                      style={{ width: i < step ? '100%' : '0%' }} 
+                    />
+                  </div>
                 )}
               </div>
+            ))}
+          </div>
 
-              <div>
-                <label className="text-xs text-text-muted mb-2 block">Phone Number</label>
-                <div className="flex gap-3">
-                  <input
-                    {...contactForm.register('phone')}
-                    placeholder="10-digit number"
-                    maxLength={10}
-                    className="flex-1 bg-bg-surface border border-border-default rounded-card px-4 py-3 text-sm text-text-primary
-                      focus:border-brand-gold focus:outline-none transition-colors placeholder:text-text-subtle"
-                  />
-                  {!otpSent && (
-                    <button
-                      onClick={contactForm.handleSubmit(handleSendOtp)}
-                      className="px-5 py-3 bg-brand-gold text-bg-primary text-sm font-semibold rounded-card whitespace-nowrap"
+          <div ref={stepRef}>
+            {/* Step 1: Asset Identification */}
+            {step === 0 && (
+              <form onSubmit={handleStep1} className="space-y-10">
+                <div className="space-y-6">
+                  <div>
+                    <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">PORTFOLIO ORIGIN</label>
+                    <select
+                      {...carForm.register('brand')}
+                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-xs text-text-primary uppercase tracking-[0.1em]
+                        focus:border-brand-gold/40 focus:bg-white/[0.05] focus:outline-none transition-all appearance-none cursor-pointer font-mono"
                     >
-                      Send OTP
-                    </button>
+                      <option value="" className="bg-bg-primary">SELECT MANUFACTURER</option>
+                      {brands.map((b) => (<option key={b} value={b} className="bg-bg-primary">{b}</option>))}
+                    </select>
+                    {carForm.formState.errors.brand && (
+                      <p className="text-brand-red text-[9px] mt-3 font-bold uppercase tracking-widest">{carForm.formState.errors.brand.message as string}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">MODEL SPECIFICATION</label>
+                    <input
+                      {...carForm.register('model')}
+                      placeholder="ENTER NOMINAL MODEL"
+                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-xs text-text-primary
+                        focus:border-brand-gold/40 focus:bg-white/[0.05] focus:outline-none transition-all placeholder:text-text-subtle font-mono tracking-widest"
+                    />
+                    {carForm.formState.errors.model && (
+                      <p className="text-brand-red text-[9px] mt-3 font-bold uppercase tracking-widest">{carForm.formState.errors.model.message as string}</p>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-6">
+                    <div>
+                      <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">VINTAGE</label>
+                      <select
+                        {...carForm.register('year')}
+                        className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-5 text-xs text-text-primary
+                          focus:border-brand-gold/40 focus:outline-none transition-all font-mono"
+                      >
+                        <option value="" className="bg-bg-primary">YEAR</option>
+                        {Array.from({ length: 15 }, (_, i) => 2024 - i).map((y) => (
+                          <option key={y} value={y} className="bg-bg-primary">{y}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">CONFIGURATION</label>
+                      <input
+                        {...carForm.register('variant')}
+                        placeholder="VARIANT"
+                        className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-5 text-xs text-text-primary
+                          focus:border-brand-gold/40 focus:outline-none transition-all placeholder:text-text-subtle font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">TELEMETRY READING (KM)</label>
+                    <input
+                      {...carForm.register('mileage')}
+                      placeholder="TOTAL DISPLACEMENT"
+                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-xs text-text-primary
+                        focus:border-brand-gold/40 focus:outline-none transition-all placeholder:text-text-subtle font-mono"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full py-6 bg-brand-gold text-bg-primary font-black text-[10px] uppercase tracking-[0.4em] rounded-full
+                    hover:shadow-[0_0_50px_rgba(197,160,89,0.5)] transition-all duration-700 ease-luxury transform hover:scale-[1.02]"
+                >
+                  INITIALIZE ASSESSMENT <ChevronRight size={14} className="inline ml-2" />
+                </button>
+              </form>
+            )}
+
+            {/* Step 2: Verification Sequence */}
+            {step === 1 && (
+              <div className="space-y-10">
+                <div className="space-y-8">
+                  <div>
+                    <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">AUTHORIZED IDENTITY</label>
+                    <input
+                      {...contactForm.register('name')}
+                      placeholder="NOMINAL IDENTITY"
+                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-xs text-text-primary
+                        focus:border-brand-gold/40 focus:outline-none transition-all placeholder:text-text-subtle font-mono"
+                    />
+                    {contactForm.formState.errors.name && (
+                      <p className="text-brand-red text-[9px] mt-3 font-bold uppercase tracking-widest">{contactForm.formState.errors.name.message as string}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">TELEMETRY ACCESS LINK</label>
+                    <div className="flex gap-4">
+                      <input
+                        {...contactForm.register('phone')}
+                        placeholder="CONNECTION SEQUENCE"
+                        maxLength={10}
+                        className="flex-1 bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-xs text-text-primary
+                          focus:border-brand-gold/40 focus:outline-none transition-all placeholder:text-text-subtle font-mono"
+                      />
+                      {!otpSent && (
+                        <button
+                          onClick={contactForm.handleSubmit(handleSendOtp)}
+                          className="px-10 py-5 bg-brand-gold text-bg-primary text-[10px] font-black uppercase tracking-[0.3em] rounded-full whitespace-nowrap"
+                        >
+                          GENERATE
+                        </button>
+                      )}
+                    </div>
+                    {contactForm.formState.errors.phone && (
+                      <p className="text-brand-red text-[9px] mt-3 font-bold uppercase tracking-widest">{contactForm.formState.errors.phone.message as string}</p>
+                    )}
+                  </div>
+
+                  {otpSent && !otpVerified && (
+                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                      <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-6 block text-center">IDENTITY SEQUENCE REQUIRED</label>
+                      <div className="flex gap-4 justify-center">
+                        {otp.map((digit, i) => (
+                          <input
+                            key={i}
+                            ref={(el) => { otpRefs.current[i] = el; }}
+                            type="text"
+                            maxLength={1}
+                            value={digit}
+                            onChange={(e) => handleOtpChange(i, e.target.value)}
+                            onKeyDown={(e) => handleOtpKeyDown(i, e)}
+                            className="w-12 h-16 bg-white/[0.03] border border-white/5 rounded-2xl text-center text-xl text-text-primary
+                              focus:border-brand-gold focus:outline-none transition-all font-mono"
+                          />
+                        ))}
+                      </div>
+                      <p className="text-[9px] text-brand-gold text-center mt-8 font-bold uppercase tracking-[0.3em]">Protocol Reference: 123456</p>
+                    </div>
+                  )}
+
+                  {otpVerified && (
+                    <div className="flex items-center justify-center gap-3 text-brand-gold text-[10px] font-bold uppercase tracking-[0.3em] animate-in zoom-in-95 duration-700">
+                      <Check size={18} /> INITIALIZATION SUCCESSFUL
+                    </div>
                   )}
                 </div>
-                {contactForm.formState.errors.phone && (
-                  <p className="text-brand-red text-xs mt-1">{contactForm.formState.errors.phone.message as string}</p>
-                )}
               </div>
+            )}
 
-              {otpSent && !otpVerified && (
-                <div>
-                  <label className="text-xs text-text-muted mb-3 block">Enter OTP</label>
-                  <div className="flex gap-3 justify-center">
-                    {otp.map((digit, i) => (
-                      <input
-                        key={i}
-                        ref={(el) => { otpRefs.current[i] = el; }}
-                        type="text"
-                        maxLength={1}
-                        value={digit}
-                        onChange={(e) => handleOtpChange(i, e.target.value)}
-                        onKeyDown={(e) => handleOtpKeyDown(i, e)}
-                        className="w-12 h-14 bg-bg-surface border border-border-default rounded-card text-center text-xl text-text-primary
-                          focus:border-brand-gold focus:outline-none transition-colors font-display"
-                      />
-                    ))}
-                  </div>
-                  <p className="text-xs text-text-subtle text-center mt-3">Use OTP: 123456</p>
+            {/* Step 3: Valuation Manifest */}
+            {step === 2 && (
+              <div className="text-center py-10">
+                <div className="w-20 h-20 rounded-full border border-brand-gold/30 flex items-center justify-center mx-auto mb-10 relative">
+                  <Check size={32} className="text-brand-gold" />
+                  <div className="absolute inset-0 rounded-full border border-brand-gold animate-ping opacity-20" />
                 </div>
-              )}
-
-              {otpVerified && (
-                <div className="flex items-center gap-2 text-brand-gold text-sm">
-                  <Check size={16} /> OTP Verified Successfully
+                
+                <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted mb-6">PRELIMINARY ASSESSMENT MANIFEST</p>
+                
+                <div ref={priceRef} className="mb-10">
+                  <p className="text-6xl font-display font-black gold-text-gradient tracking-tighter">
+                    ₹{estimatedPrice.toLocaleString('en-IN')}
+                  </p>
                 </div>
-              )}
-            </div>
-          )}
-
-          {/* Step 3: Price */}
-          {step === 2 && (
-            <div className="text-center py-10">
-              <div className="w-16 h-16 rounded-full bg-brand-gold/10 flex items-center justify-center mx-auto mb-6">
-                <Check size={28} className="text-brand-gold" />
-              </div>
-              <p className="text-text-muted text-sm mb-4">Your car&apos;s estimated value</p>
-              <div ref={priceRef}>
-                <p className="text-stat">
-                  ₹{estimatedPrice.toLocaleString('en-IN')}
+                
+                <p className="text-xs text-text-muted font-mono leading-relaxed max-w-sm mx-auto mb-16 opacity-60">
+                  This valuation is a preliminary market assessment. Final settlement is contingent upon institutional technical verification.
                 </p>
+                
+                <button className="px-12 py-6 bg-brand-gold text-bg-primary font-black text-[10px] uppercase tracking-[0.4em] rounded-full
+                  hover:shadow-[0_0_50px_rgba(197,160,89,0.5)] transition-all duration-700">
+                  INITIALIZE FORENSIC INSPECTION
+                </button>
               </div>
-              <p className="text-text-muted text-sm mt-4 mb-8">
-                This is a preliminary estimate. Book an inspection for an accurate valuation.
-              </p>
-              <button className="px-8 py-3.5 bg-brand-gold text-bg-primary font-semibold rounded-card
-                hover:shadow-[0_0_30px_rgba(201,168,76,0.3)] transition-all">
-                Book Free Inspection
-              </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>

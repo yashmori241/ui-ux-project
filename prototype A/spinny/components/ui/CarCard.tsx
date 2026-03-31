@@ -28,90 +28,95 @@ export function CarCard({ car }: CarCardProps) {
   };
 
   return (
-    <Link href={`/car/${car.id}`} className="block group">
-      <div className="bg-bg-surface border border-border-default rounded-card overflow-hidden card-hover">
-        {/* Image */}
-        <div className="relative aspect-[4/3] overflow-hidden">
+    <Link href={`/car/${car.id}`} className="block group perspective-1000">
+      <div className="glass-elite luxury-border rounded-[42px] overflow-hidden transition-all duration-1000 ease-luxury group-hover:shadow-[0_40px_100px_rgba(0,0,0,0.8)] group-hover:-translate-y-2 relative">
+        {/* Specular Highlight Layer */}
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-gold/[0.05] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+        
+        {/* Image Module */}
+        <div className="relative aspect-[16/11] overflow-hidden">
           <Image
             src={car.images[0]}
-            alt={`${car.make} ${car.model} ${car.year}`}
+            alt={`${car.make} ${car.model}`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-700 ease-luxury group-hover:scale-105"
+            className="object-cover desaturate-[0.6] sepia-[0.1] brightness-[0.8] transition-all duration-[2500ms] ease-luxury group-hover:scale-110 group-hover:desaturate-0 group-hover:brightness-100 group-hover:rotate-1"
           />
+          
+          {/* Atmospheric Overlays */}
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-primary via-transparent to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-brand-gold/5 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 
-          {/* Badges */}
-          <div className="absolute top-3 left-3 flex gap-2">
+          {/* Institutional Badges */}
+          <div className="absolute top-6 left-6 flex flex-col gap-3">
             {car.assured && (
-              <span className="px-2 py-1 bg-brand-gold/90 text-bg-primary text-[10px] font-bold uppercase tracking-wider rounded-sm">
-                Assured
-              </span>
+              <div className="glass-elite px-4 py-2 text-[8px] font-bold uppercase tracking-[0.4em] rounded-full border-brand-gold/30 text-brand-gold shadow-[0_10px_30px_rgba(197,160,89,0.3)] backdrop-blur-md">
+                VERIFIED HERITAGE
+              </div>
             )}
             {car.trending && (
-              <span className="px-2 py-1 bg-brand-red/90 text-white text-[10px] font-bold uppercase tracking-wider rounded-sm">
-                Trending
-              </span>
+              <div className="glass px-4 py-2 text-[8px] font-bold uppercase tracking-[0.4em] rounded-full border-white/10 text-white/70 backdrop-blur-md">
+                HIGH ACQUISITION
+              </div>
             )}
           </div>
 
-          {/* Heart */}
+          {/* Heart/Shortlist */}
           <button
             onClick={handleLike}
-            className="absolute top-3 right-3 w-8 h-8 rounded-full bg-bg-primary/60 backdrop-blur-sm
-              flex items-center justify-center transition-all duration-300
-              hover:bg-bg-primary/80"
-            aria-label={liked ? 'Remove from shortlist' : 'Add to shortlist'}
-            data-cursor
+            className="absolute top-6 right-6 w-12 h-12 rounded-full glass border-white/10
+              flex items-center justify-center transition-all duration-700
+              hover:bg-brand-gold hover:text-bg-primary group/heart z-10"
+            aria-label={liked ? 'Remove from portfolio' : 'Add to portfolio'}
           >
             <Heart
-              size={16}
-              className={`transition-all duration-300 ${
-                mounted && liked ? 'fill-brand-red text-brand-red scale-110' : 'text-white'
+              size={18}
+              className={`transition-all duration-700 ${
+                mounted && liked ? 'fill-current text-white scale-110' : 'text-white/40 group-hover/heart:text-bg-primary'
               }`}
-              style={{
-                transform: mounted && liked ? 'scale(1.1)' : 'scale(1)',
-              }}
             />
           </button>
-
-          {/* Price overlay */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-bg-primary/80 to-transparent p-3 pt-8">
-            <span className="text-lg font-display font-bold text-text-primary">
-              {formatPrice(car.price)}
-            </span>
-          </div>
         </div>
 
-        {/* Content */}
-        <div className="p-4">
-          <h3 className="font-display font-bold text-text-primary text-base mb-1 truncate">
-            {car.year} {car.make} {car.model}
-          </h3>
-
-          <div className="flex items-center gap-3 text-text-muted text-xs mb-3">
-            <span className="flex items-center gap-1">
-              <Gauge size={12} />
-              {formatMileage(car.mileage)}
-            </span>
-            <span className="w-[3px] h-[3px] rounded-full bg-text-subtle" />
-            <span className="flex items-center gap-1">
-              <Fuel size={12} />
-              {car.fuelType}
-            </span>
-            <span className="w-[3px] h-[3px] rounded-full bg-text-subtle" />
-            <span className="flex items-center gap-1">
-              <Settings2 size={12} />
-              {car.transmission}
-            </span>
+        {/* Technical Data Module */}
+        <div className="p-10 relative">
+          <div className="flex justify-between items-start mb-8">
+            <div>
+              <p className="text-[10px] font-mono font-bold text-brand-gold/60 uppercase tracking-[0.2em] mb-2">{car.year}</p>
+              <h3 className="font-display font-black text-text-primary text-2xl tracking-tighter leading-none group-hover:text-brand-gold transition-colors duration-700">
+                {car.make} <span className="opacity-60">{car.model}</span>
+              </h3>
+            </div>
+            <div className="w-10 h-[10px] bg-brand-gold/20 rounded-full overflow-hidden">
+               <div className="w-full h-full bg-brand-gold opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-brand-gold font-medium">
-              {formatEMI(car.emiPerMonth)}
-            </span>
-            <span className="text-xs text-text-subtle">
-              {car.location}
-            </span>
+          <div className="flex items-center gap-10 text-text-muted text-[9px] uppercase font-bold tracking-[0.3em] font-mono mb-10 opacity-60">
+            <div className="flex items-center gap-3 group/stat">
+              <Gauge size={14} className="text-brand-gold/40 group-hover/stat:text-brand-gold transition-colors" />
+              <span>{formatMileage(car.mileage).toUpperCase()}</span>
+            </div>
+            <div className="flex items-center gap-3 group/stat">
+              <Fuel size={14} className="text-brand-gold/40 group-hover/stat:text-brand-gold transition-colors" />
+              <span>{car.fuelType.toUpperCase()}</span>
+            </div>
+          </div>
+
+          {/* Financial Protocol Section */}
+          <div className="flex items-end justify-between pt-10 border-t border-white/5">
+            <div>
+              <p className="text-[8px] font-bold uppercase tracking-[0.4em] text-text-muted/60 mb-3">Portfolio Valuation</p>
+              <p className="text-3xl font-display font-black text-text-primary tracking-tighter gold-text-gradient">
+                {formatPrice(car.price)}
+              </p>
+            </div>
+            <div className="text-right">
+                <p className="text-[10px] font-mono font-bold text-brand-gold tracking-tight mb-2">
+                  {formatEMI(car.emiPerMonth)}<span className="opacity-40">/MO</span>
+                </p>
+                <p className="text-[8px] font-bold text-text-subtle uppercase tracking-[0.3em] opacity-60">OPERATIONAL PROTOCOL</p>
+            </div>
           </div>
         </div>
       </div>

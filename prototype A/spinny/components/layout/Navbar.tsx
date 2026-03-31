@@ -39,76 +39,79 @@ export function Navbar() {
   }, [mobileOpen]);
 
   const navLinks = [
-    { label: 'Browse Cars', href: '/browse' },
-    { label: 'Sell Car', href: '/sell' },
-    { label: 'EMI Calculator', href: '/emi' },
-    { label: 'About', href: '/about' },
+    { label: 'DISCOVER PORTFOLIO', href: '/browse' },
+    { label: 'LIQUIDATION PROTOCOL', href: '/sell' },
+    { label: 'FISCAL CALCULATOR', href: '/emi' },
+    { label: 'INSTITUTIONAL', href: '/about' },
   ];
 
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-[9990] transition-all duration-500 ease-luxury ${
+        className={`fixed top-0 left-0 right-0 z-[9990] transition-all duration-700 ease-luxury ${
           scrolled
-            ? 'bg-bg-primary/80 backdrop-blur-xl border-b border-border-default'
+            ? 'bg-bg-primary/90 backdrop-blur-2xl border-b border-white/5'
             : 'bg-transparent'
         }`}
-        style={{ height: 72 }}
+        style={{ height: 80 }}
       >
         <div className="max-w-[1400px] mx-auto px-6 h-full flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <span className="font-display text-2xl font-bold text-text-primary tracking-tight">
+          <Link href="/" className="flex items-center gap-5 group">
+            <div className="w-10 h-10 rounded-full border border-brand-gold/30 flex items-center justify-center group-hover:border-brand-gold transition-all duration-1000 bg-brand-gold/5 relative">
+              <div className="w-2 h-2 rounded-full bg-brand-gold shadow-[0_0_15px_rgba(197,160,89,0.9)]" />
+              <div className="absolute inset-0 rounded-full border border-brand-gold/40 animate-ping opacity-10" />
+            </div>
+            <span className="font-display text-xl font-black text-text-primary tracking-[0.35em] group-hover:text-brand-gold transition-colors duration-700">
               SPINNY
             </span>
-            <span className="w-2 h-2 rounded-full bg-brand-gold group-hover:scale-125 transition-transform duration-300" />
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-12">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-body font-medium tracking-wide transition-colors duration-300 relative
+                className={`text-[9px] font-bold uppercase tracking-[0.4em] transition-all duration-500 relative
                   ${pathname === link.href ? 'text-brand-gold' : 'text-text-muted hover:text-text-primary'}`}
               >
                 {link.label}
                 {pathname === link.href && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-[1.5px] bg-brand-gold" />
+                  <span className="absolute -bottom-2 left-0 right-0 h-[1px] bg-brand-gold shadow-[0_0_20px_rgba(197,160,89,0.6)]" />
                 )}
               </Link>
             ))}
           </div>
 
           {/* Desktop Right */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-6">
             <Link
               href="/compare"
-              className="p-2 text-text-muted hover:text-brand-gold transition-colors duration-300"
+              className="p-2 text-text-muted hover:text-brand-gold transition-colors duration-500"
               data-cursor
             >
-              <GitCompareArrows size={20} />
+              <GitCompareArrows size={18} />
             </Link>
             <Link
               href="/dashboard"
-              className="relative p-2 text-text-muted hover:text-brand-gold transition-colors duration-300"
+              className="relative p-2 text-text-muted hover:text-brand-gold transition-colors duration-500"
               data-cursor
             >
-              <Heart size={20} />
+              <Heart size={18} />
               {mounted && shortlist.length > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-brand-gold text-bg-primary text-[10px] font-bold flex items-center justify-center">
+                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-brand-gold text-bg-primary text-[8px] font-bold flex items-center justify-center">
                   {shortlist.length}
                 </span>
               )}
             </Link>
             <Link
               href={isAuthenticated ? '/dashboard' : '/login'}
-              className="ml-2 px-5 py-2 bg-brand-gold text-bg-primary text-sm font-semibold rounded-card
-                hover:bg-brand-gold/90 transition-all duration-300 ease-luxury"
+              className="ml-4 px-8 py-3 bg-brand-gold text-bg-primary text-[9px] font-bold uppercase tracking-[0.3em] rounded-full
+                hover:shadow-[0_0_40px_rgba(197,160,89,0.4)] transition-all duration-700 ease-luxury shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
               data-cursor
             >
-              {mounted ? (isAuthenticated ? 'Dashboard' : 'Login') : 'Login'}
+              {mounted ? (isAuthenticated ? 'EXECUTIVE SUITE' : 'INITIALIZE SESSION') : 'INITIALIZE SESSION'}
             </Link>
           </div>
 
@@ -126,60 +129,55 @@ export function Navbar() {
 
       {/* Mobile Full-Screen Overlay */}
       <div
-        className={`fixed inset-0 z-[9980] bg-bg-primary transition-all duration-500 ease-luxury lg:hidden
+        className={`fixed inset-0 z-[9980] bg-bg-primary/95 backdrop-blur-2xl transition-all duration-700 ease-luxury lg:hidden
           ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
-        <div className="flex flex-col justify-center items-start h-full px-8 pt-20">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-gold/5 blur-[120px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+        
+        <div className="flex flex-col justify-center h-full px-12 relative z-10">
+          <div className="flex items-center gap-4 mb-16 opacity-40">
+             <div className="w-8 h-[1px] bg-brand-gold/50" />
+             <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold">NAVIGATION MENU</p>
+          </div>
+          
+          <div className="space-y-4">
           {navLinks.map((link, i) => (
             <Link
               key={link.href}
               href={link.href}
-              className="group flex items-center justify-between w-full py-5 border-b border-border-default"
+              className="group flex items-baseline gap-6 w-full py-4 overflow-hidden"
               style={{
                 opacity: mobileOpen ? 1 : 0,
-                transform: mobileOpen ? 'translateY(0)' : 'translateY(20px)',
-                transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.08 + 0.2}s`,
+                transform: mobileOpen ? 'translateY(0)' : 'translateY(40px)',
+                transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1 + 0.2}s`,
               }}
             >
-              <span className="text-display-md text-text-primary group-hover:text-brand-gold transition-colors">
-                {link.label}
+              <span className="text-[10px] font-mono text-brand-gold/40 font-bold">0{i + 1}</span>
+              <span className="text-4xl sm:text-5xl font-display font-black text-text-primary tracking-tighter group-hover:text-brand-gold group-hover:translate-x-4 transition-all duration-500 leading-[0.85]">
+                {link.label.split(' ')[0]}<span className="gold-text-gradient">{link.label.split(' ')[1] ? ' ' + link.label.split(' ')[1] : ''}</span>
               </span>
-              <ChevronRight
-                size={24}
-                className="text-text-muted group-hover:text-brand-gold group-hover:translate-x-1 transition-all"
-              />
             </Link>
           ))}
-          <div className="flex gap-4 mt-8" style={{
+          <div className="flex flex-wrap gap-4 mt-16 pt-10 border-t border-white/5" style={{
             opacity: mobileOpen ? 1 : 0,
-            transition: `opacity 0.5s ease ${0.6}s`,
+            transition: `opacity 1s ease ${0.7}s`,
           }}>
-            <Link
-              href="/compare"
-              className="px-5 py-3 border border-border-default rounded-card text-sm text-text-muted hover:text-brand-gold hover:border-brand-gold transition-all"
-            >
-              Compare
+            <Link href="/compare" className="px-6 py-3 glass border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-widest text-text-muted">
+              Matrix
             </Link>
-            <Link
-              href="/dashboard"
-              className="px-5 py-3 border border-border-default rounded-card text-sm text-text-muted hover:text-brand-gold hover:border-brand-gold transition-all relative"
-            >
+            <Link href="/dashboard" className="px-6 py-3 glass border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-widest text-text-muted">
               Shortlist
-              {mounted && shortlist.length > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-brand-gold text-bg-primary text-[10px] font-bold flex items-center justify-center">
-                  {shortlist.length}
-                </span>
-              )}
             </Link>
             <Link
               href={isAuthenticated ? '/dashboard' : '/login'}
-              className="px-5 py-3 bg-brand-gold text-bg-primary text-sm font-semibold rounded-card"
+              className="px-8 py-3 bg-brand-gold text-bg-primary text-[10px] font-bold uppercase tracking-widest rounded-full shadow-[0_0_20px_rgba(197,160,89,0.3)]"
             >
-              {mounted ? (isAuthenticated ? 'Dashboard' : 'Login') : 'Login'}
+              {mounted ? (isAuthenticated ? 'Executive Suite' : 'Initialize Session') : 'Initialize Session'}
             </Link>
           </div>
         </div>
       </div>
-    </>
-  );
+    </div>
+  </>
+);
 }

@@ -83,173 +83,225 @@ export default function CarDetailPage() {
   ];
 
   return (
-    <div className="pt-[72px] min-h-screen bg-bg-primary">
-      <div className="max-w-[1400px] mx-auto px-6 py-8">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 mb-6 text-xs text-text-muted">
-          <Link href="/browse" className="hover:text-brand-gold">Browse</Link>
-          <span>/</span>
-          <span className="text-text-primary">{car.make} {car.model}</span>
+    <div className="pt-[80px] min-h-screen bg-bg-primary relative overflow-hidden">
+      {/* Background Atmosphere */}
+      <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-brand-gold/[0.02] blur-[150px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      
+      <div className="max-w-[1440px] mx-auto px-6 py-12">
+        {/* Architectural Breadcrumb */}
+        <div className="flex items-center gap-4 mb-10 text-[9px] font-bold uppercase tracking-[0.4em] text-text-muted/60">
+          <Link href="/browse" className="hover:text-brand-gold transition-colors">PORTFOLIO</Link>
+          <div className="w-1 h-1 rounded-full bg-brand-gold/30" />
+          <span className="text-text-primary/40">{car.make}</span>
+          <div className="w-1 h-1 rounded-full bg-brand-gold/30" />
+          <span className="text-brand-gold">{car.model}</span>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Left Column */}
+        <div className="flex flex-col lg:flex-row gap-16">
+          {/* Asset Visualization Column */}
           <div className="flex-1">
-            {/* Gallery */}
-            <div className="mb-6">
+            {/* Technical Asset Viewer */}
+            <div className="mb-12">
               <div
                 ref={mainImgRef}
-                className="relative aspect-[16/9] rounded-card overflow-hidden cursor-pointer"
+                className="relative aspect-[16/9] rounded-[48px] overflow-hidden cursor-pointer group shadow-[0_60px_120px_rgba(0,0,0,0.8)] glass-elite p-[1px]"
                 onClick={() => setFullScreen(true)}
               >
+                <div className="absolute inset-0 z-10 pointer-events-none shadow-[inset_0_0_150px_rgba(0,0,0,0.5)]" />
+                <div className="absolute top-8 left-8 z-20 flex gap-3">
+                   <div className="px-4 py-2 glass-elite luxury-border rounded-full text-[8px] font-bold uppercase tracking-widest text-brand-gold">
+                      ASSET VERIFIED
+                   </div>
+                   {car.assured && (
+                     <div className="px-4 py-2 bg-brand-gold/20 border border-brand-gold/40 rounded-full text-[8px] font-bold uppercase tracking-widest text-brand-gold backdrop-blur-md">
+                        INSTITUTIONAL GRADE
+                     </div>
+                   )}
+                </div>
+
                 {mounted && (
                   <Image
                     src={car.images[currentImage]}
-                    alt={`${car.make} ${car.model} - Image ${currentImage + 1}`}
+                    alt={`${car.make} ${car.model}`}
                     fill
-                    sizes="(max-width: 768px) 100vw, 60vw"
-                    className="object-cover"
+                    sizes="(max-width: 1400px) 100vw, 80vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-[3000ms] ease-luxury"
                     priority
                   />
                 )}
               </div>
 
-              <div className="flex gap-3 mt-3 overflow-x-auto">
+              <div className="flex gap-4 mt-8 overflow-x-auto pb-4 custom-scrollbar">
                 {car.images.map((img, i) => (
                   <button
                     key={i}
                     onClick={() => handleThumbnailClick(i)}
-                    className={`relative w-20 h-14 rounded-sm overflow-hidden flex-shrink-0 border-2 transition-all duration-300
-                      ${i === currentImage ? 'border-brand-gold' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                    className={`relative w-28 h-20 rounded-2xl overflow-hidden flex-shrink-0 border transition-all duration-700
+                      ${i === currentImage ? 'border-brand-gold shadow-[0_0_20px_rgba(197,160,89,0.3)]' : 'border-white/5 opacity-40 hover:opacity-100'}`}
                   >
-                    <Image src={img} alt={`Thumbnail ${i + 1}`} fill sizes="80px" className="object-cover" />
+                    <Image src={img} alt={`Metadata ${i + 1}`} fill sizes="112px" className="object-cover" />
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Tabs */}
-            <div className="border-b border-border-default mb-6">
-              <div className="flex gap-6">
-                {['overview', 'specifications', 'features', 'inspection'].map((tab) => (
+            {/* Institutional Tab Architecture */}
+            <div className="border-b border-white/5 mb-12">
+              <div className="flex gap-12 lg:gap-16">
+                {['overview', 'mechanical', 'amenities', 'forensic'].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`pb-3 text-sm font-medium capitalize transition-all duration-300 relative
-                      ${activeTab === tab ? 'text-brand-gold' : 'text-text-muted hover:text-text-primary'}`}
+                    className={`pb-6 text-[10px] font-bold uppercase tracking-[0.4em] transition-all duration-700 relative
+                      ${activeTab === tab ? 'text-brand-gold' : 'text-text-muted/60 hover:text-white'}`}
                   >
                     {tab}
                     {activeTab === tab && (
-                      <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-brand-gold" />
+                      <span className="absolute bottom-[-1px] left-0 right-0 h-[1px] bg-brand-gold animate-in fade-in slide-in-from-left-full duration-700" />
                     )}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Tab Content */}
-            <div className="mb-8">
+            {/* Manifest Content */}
+            <div className="mb-16">
               {activeTab === 'overview' && (
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
                   {specs.map((s) => (
-                    <div key={s.label} className="bg-bg-surface border border-border-default rounded-card p-4">
-                      <div className="flex items-center gap-2 text-text-muted mb-1">
+                    <div key={s.label} className="glass-elite luxury-border rounded-[36px] p-10 group hover:bg-white/[0.02] transition-colors duration-700">
+                      <div className="flex items-center gap-4 text-brand-gold/40 mb-6 group-hover:text-brand-gold transition-colors">
                         {s.icon}
-                        <span className="text-xs">{s.label}</span>
+                        <span className="text-[9px] font-bold uppercase tracking-[0.4em]">{s.label}</span>
                       </div>
-                      <span className="text-sm font-semibold text-text-primary">{s.value}</span>
+                      <span className="text-2xl font-mono text-text-primary tracking-tighter">{s.value}</span>
                     </div>
                   ))}
                 </div>
               )}
 
-              {activeTab === 'specifications' && (
-                <div className="space-y-3">
+              {activeTab === 'mechanical' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 animate-in fade-in duration-1000">
                   {[
-                    ['Engine', car.engine],
-                    ['Power', car.power],
-                    ['Seats', `${car.seats} Seater`],
-                    ['Body Type', car.bodyType],
-                    ['Registration', car.registrationState],
+                    ['Propulsion Unit', car.engine],
+                    ['Power Output', car.power],
+                    ['Cabin Configuration', `${car.seats} Integrated Seats`],
+                    ['Heritage Classification', car.bodyType],
+                    ['Regional Registration', car.registrationState],
                   ].map(([label, value]) => (
-                    <div key={label} className="flex justify-between py-3 border-b border-border-default">
-                      <span className="text-sm text-text-muted">{label}</span>
-                      <span className="text-sm text-text-primary font-medium">{value}</span>
+                    <div key={label} className="flex justify-between py-6 border-b border-white/5 group">
+                      <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-text-muted/60 group-hover:text-brand-gold/80 transition-colors">{label}</span>
+                      <span className="text-sm text-text-primary font-mono tracking-tight">{value}</span>
                     </div>
                   ))}
                 </div>
               )}
 
-              {activeTab === 'features' && (
-                <div className="grid grid-cols-2 gap-3">
+              {activeTab === 'amenities' && (
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-1000">
                   {car.features.map((f) => (
-                    <div key={f} className="flex items-center gap-2 text-sm text-text-primary">
-                      <span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />
+                    <div key={f} className="flex items-center gap-4 p-5 glass-elite luxury-border rounded-2xl text-[10px] font-bold uppercase tracking-widest text-text-muted/80">
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-gold/40 shadow-[0_0_8px_rgba(197,160,89,0.3)]" />
                       {f}
                     </div>
                   ))}
                 </div>
               )}
 
-              {activeTab === 'inspection' && (
-                <div className="bg-bg-surface border border-border-default rounded-card p-6">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="relative w-20 h-20">
+              {activeTab === 'forensic' && (
+                <div className="glass-elite luxury-border rounded-[48px] p-10 relative overflow-hidden animate-in fade-in duration-1000">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold/5 blur-[100px] rounded-full translate-x-1/4 -translate-y-1/4" />
+                  <div className="flex flex-col md:flex-row items-center gap-12 relative z-10">
+                    <div className="relative w-40 h-40">
                       <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="6" />
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="3" />
                         <circle
-                          cx="50" cy="50" r="45" fill="none" stroke="#C9A84C" strokeWidth="6"
+                          cx="50" cy="50" r="45" fill="none" stroke="#C5A059" strokeWidth="3"
                           strokeLinecap="round"
+                          className="transition-all duration-[2000ms] ease-luxury"
                           strokeDasharray={`${(car.inspectionScore / 200) * 283} 283`}
                         />
                       </svg>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-lg font-bold text-brand-gold">{car.inspectionScore}</span>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <span className="text-5xl font-display font-black text-brand-gold">{car.inspectionScore}</span>
+                        <span className="text-[10px] font-bold text-text-muted/40 tracking-[0.4em] mt-1">/ 200</span>
                       </div>
                     </div>
-                    <div>
-                      <p className="font-display font-bold text-text-primary">Inspection Score</p>
-                      <p className="text-sm text-text-muted">{car.inspectionScore}/200 points passed</p>
+                    <div className="text-center md:text-left">
+                      <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-brand-gold mb-4 opacity-100">FORENSIC EVALUATION</h4>
+                      <p className="font-display text-3xl font-black text-text-primary mb-4 leading-tight">Master Inspection Manifest</p>
+                      <p className="text-sm text-text-muted opacity-60 max-w-md leading-relaxed font-light">
+                        Certified performance. This asset has been subjected to a rigorous 200-point forensic technical examination, meeting all institutional standards for acquisition.
+                      </p>
                     </div>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Inline EMI Calculator */}
-            <div className="bg-bg-surface border border-border-default rounded-card p-6 mb-8">
-              <h3 className="text-label text-brand-gold mb-6">EMI CALCULATOR</h3>
-              <div className="space-y-4">
-                <div>
-                  <label className="text-xs text-text-muted mb-1 block">Loan Amount: {formatPrice(loanAmount)}</label>
-                  <input type="range" min={100000} max={car.price} step={10000} value={loanAmount}
-                    onChange={(e) => setLoanAmount(Number(e.target.value))}
-                    className="w-full accent-brand-gold" />
+            {/* Fiscal Portolio Module */}
+            <div className="glass-elite luxury-border rounded-[48px] p-12 lg:p-16 mb-16 overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-gold/[0.04] blur-[150px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+              
+              <div className="max-w-3xl">
+                <div className="flex items-center gap-4 mb-12">
+                   <div className="w-12 h-[1px] bg-brand-gold/30" />
+                   <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-brand-gold">FISCAL CONCIERGE</p>
                 </div>
-                <div>
-                  <label className="text-xs text-text-muted mb-1 block">Interest Rate: {interestRate}%</label>
-                  <input type="range" min={6} max={18} step={0.5} value={interestRate}
-                    onChange={(e) => setInterestRate(Number(e.target.value))}
-                    className="w-full accent-brand-gold" />
-                </div>
-                <div>
-                  <label className="text-xs text-text-muted mb-1 block">Tenure: {tenure} months</label>
-                  <input type="range" min={12} max={84} step={6} value={tenure}
-                    onChange={(e) => setTenure(Number(e.target.value))}
-                    className="w-full accent-brand-gold" />
-                </div>
-                <div className="pt-4 border-t border-border-default">
-                  <p className="text-text-muted text-xs">Monthly EMI</p>
-                  <p className="text-display-md gold-text-gradient">{formatEMI(emi)}</p>
+                
+                <div className="space-y-12 relative z-10">
+                  <div className="space-y-6">
+                    <div className="flex justify-between items-end">
+                      <label className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted/60">CAPITAL ALLOCATION</label>
+                      <span className="text-2xl font-mono text-brand-gold tracking-tighter">{formatPrice(loanAmount)}</span>
+                    </div>
+                    <input type="range" min={100000} max={car.price} step={10000} value={loanAmount}
+                      onChange={(e) => setLoanAmount(Number(e.target.value))}
+                      className="w-full h-[1px] bg-white/10 appearance-none rounded-full accent-brand-gold cursor-pointer" />
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                    <div className="space-y-6">
+                      <div className="flex justify-between items-end">
+                        <label className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted/60">APR INDEX</label>
+                        <span className="text-lg font-mono text-text-primary">{interestRate}%</span>
+                      </div>
+                      <input type="range" min={6} max={18} step={0.5} value={interestRate}
+                        onChange={(e) => setInterestRate(Number(e.target.value))}
+                        className="w-full h-[1px] bg-white/10 appearance-none rounded-full accent-brand-gold cursor-pointer" />
+                    </div>
+                    <div className="space-y-6">
+                      <div className="flex justify-between items-end">
+                        <label className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted/60">DURATION (MONTHS)</label>
+                        <span className="text-lg font-mono text-text-primary">{tenure}</span>
+                      </div>
+                      <input type="range" min={12} max={84} step={6} value={tenure}
+                        onChange={(e) => setTenure(Number(e.target.value))}
+                        className="w-full h-[1px] bg-white/10 appearance-none rounded-full accent-brand-gold cursor-pointer" />
+                    </div>
+                  </div>
+                  
+                  <div className="pt-12 border-t border-white/5 mt-10 flex flex-col md:flex-row md:items-end justify-between gap-10">
+                    <div>
+                      <p className="text-text-muted text-[10px] font-bold uppercase tracking-[0.4em] mb-4 opacity-60">MONTHLY FISCAL COMMITMENT</p>
+                      <p className="text-6xl font-display font-black gold-text-gradient tracking-tighter">{formatEMI(emi)}</p>
+                    </div>
+                    <button className="px-12 py-6 bg-brand-gold text-bg-primary text-[11px] font-black uppercase tracking-[0.4em] rounded-full hover:shadow-[0_0_50px_rgba(197,160,89,0.4)] transition-all duration-700">
+                      INITIALIZE FUNDING
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Similar Cars */}
+            {/* Institutional Recommendations */}
             {similarCars.length > 0 && (
               <div>
-                <h3 className="text-label text-brand-gold mb-6">SIMILAR CARS</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex items-center gap-4 mb-10">
+                   <div className="w-12 h-[1px] bg-brand-gold/30" />
+                   <h3 className="text-[10px] font-bold uppercase tracking-[0.5em] text-brand-gold">SIMILAR ASSETS</h3>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                   {similarCars.map((c) => (
                     <CarCard key={c.id} car={c} />
                   ))}
@@ -258,59 +310,63 @@ export default function CarDetailPage() {
             )}
           </div>
 
-          {/* Right Sticky Card */}
-          <div className="lg:w-[380px] flex-shrink-0">
-            <div className="sticky top-[88px] bg-bg-surface border border-border-default rounded-card p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h1 className="font-display font-bold text-xl text-text-primary">
-                    {car.year} {car.make} {car.model}
+          {/* Precision Action Module (Sticky Card) */}
+          <div className="lg:w-[420px] flex-shrink-0">
+            <div className="sticky top-[120px] glass-elite luxury-border rounded-[48px] p-10 lg:p-12 shadow-[0_60px_120px_rgba(0,0,0,0.8)] relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold/[0.05] blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+              
+              <div className="flex items-start justify-between mb-10 relative z-10">
+                <div className="max-w-[80%]">
+                  <h1 className="font-display font-black text-3xl lg:text-4xl text-text-primary tracking-tighter leading-[0.9] mb-4">
+                    {car.year} <br />
+                    <span className="italic gold-text-gradient">{car.make}</span> <br />
+                    {car.model}
                   </h1>
-                  <div className="flex items-center gap-2 mt-1 text-text-muted text-xs">
-                    <MapPin size={12} />
-                    <span>{car.location}</span>
+                  <div className="flex items-center gap-3 text-text-muted/60 text-[9px] font-bold uppercase tracking-[0.3em]">
+                    <MapPin size={12} className="text-brand-gold/60" />
+                    <span>{car.location} OPERATIONAL HUB</span>
                   </div>
                 </div>
                 <button
                   onClick={() => toggle(car.id)}
-                  className="p-2 rounded-full bg-bg-surface2"
+                  className="w-14 h-14 rounded-full glass-elite border border-white/5 flex items-center justify-center group transition-all duration-700 hover:border-brand-gold/40"
                   data-cursor
                 >
                   <Heart
-                    size={18}
-                    className={mounted && liked ? 'fill-brand-red text-brand-red' : 'text-text-muted'}
+                    size={22}
+                    className={mounted && liked ? 'fill-brand-red text-brand-red scale-110' : 'text-text-muted/40 group-hover:text-brand-gold transition-all duration-500'}
                   />
                 </button>
               </div>
 
-              {car.assured && (
-                <div className="flex items-center gap-2 mb-4 px-3 py-2 bg-brand-gold/10 border border-brand-gold/20 rounded-card">
-                  <Shield size={14} className="text-brand-gold" />
-                  <span className="text-xs text-brand-gold font-medium">Spinny Assured</span>
+              <div className="mb-10 relative z-10">
+                <p className="text-4xl font-mono font-black text-text-primary tracking-tighter flex items-end gap-3">
+                  {formatPrice(car.price)}
+                  <span className="text-xs text-text-muted/40 font-bold uppercase tracking-widest mb-2">INR</span>
+                </p>
+                <div className="flex items-center gap-4 mt-3">
+                   <p className="text-sm text-text-muted line-through opacity-40">{formatPrice(car.originalPrice)}</p>
+                   <div className="w-1 h-1 rounded-full bg-brand-gold/30" />
+                   <p className="text-[10px] font-bold text-brand-gold uppercase tracking-widest">ASSET SECURE</p>
                 </div>
-              )}
-
-              <div className="mb-6">
-                <p className="text-3xl font-display font-bold text-text-primary">{formatPrice(car.price)}</p>
-                <p className="text-sm text-text-muted line-through mt-1">{formatPrice(car.originalPrice)}</p>
-                <p className="text-sm text-brand-gold mt-1">EMI from {formatEMI(car.emiPerMonth)}</p>
               </div>
 
-              <div className="space-y-3">
-                <MagneticButton variant="gold" className="w-full justify-center">
-                  Book Free Test Drive
-                </MagneticButton>
-                <Link href="/compare" className="block">
-                  <MagneticButton variant="outline" className="w-full justify-center">
-                    Add to Compare
-                  </MagneticButton>
-                </Link>
+              <div className="space-y-4 relative z-10">
+                <button className="w-full py-6 bg-brand-gold text-bg-primary font-black text-[10px] uppercase tracking-[0.4em] rounded-full hover:shadow-[0_0_40px_rgba(197,160,89,0.5)] transition-all duration-700">
+                  SECURE ASSET NOW
+                </button>
+                <button className="w-full py-6 glass-elite luxury-border text-white font-black text-[10px] uppercase tracking-[0.4em] rounded-full hover:bg-white/[0.05] transition-all duration-700">
+                  REGISTER TEST DRIVE
+                </button>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-border-default">
-                <p className="text-xs text-text-muted mb-2">Have questions?</p>
-                <button className="w-full py-2.5 bg-bg-surface2 border border-border-default rounded-card text-sm text-text-primary hover:border-brand-gold transition-all">
-                  Contact Spinny
+              <div className="mt-10 pt-10 border-t border-white/5 relative z-10">
+                <div className="flex items-center gap-4 mb-4">
+                   <div className="w-1.5 h-1.5 rounded-full bg-brand-gold animate-pulse" />
+                   <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted">EXECUTIVE CONCIERGE ACTIVE</p>
+                </div>
+                <button className="w-full py-5 bg-white/[0.02] border border-white/5 rounded-2xl text-[9px] font-bold uppercase tracking-[0.4em] text-text-muted hover:text-white hover:border-brand-gold/30 transition-all duration-700">
+                  AUTHENTICATE ENQUIRY
                 </button>
               </div>
             </div>
@@ -318,43 +374,47 @@ export default function CarDetailPage() {
         </div>
       </div>
 
-      {/* Full Screen Gallery Modal */}
+      {/* Cinematic Asset Modal */}
       {fullScreen && (
-        <div className="fixed inset-0 z-[99999] bg-bg-primary/95 flex items-center justify-center">
+        <div className="fixed inset-0 z-[99999] bg-bg-primary/98 backdrop-blur-3xl flex items-center justify-center animate-in fade-in duration-700">
           <button
             onClick={() => setFullScreen(false)}
-            className="absolute top-6 right-6 p-2 text-text-muted hover:text-text-primary"
+            className="absolute top-10 right-10 w-16 h-16 rounded-full glass-elite border border-white/10 flex items-center justify-center text-text-muted hover:text-white transition-all duration-500"
           >
-            <X size={24} />
+            <X size={28} />
           </button>
+          
           <button
             onClick={() => setCurrentImage((p) => (p - 1 + car.images.length) % car.images.length)}
-            className="absolute left-6 p-3 bg-bg-surface rounded-full text-text-muted hover:text-text-primary"
+            className="absolute left-10 w-16 h-16 rounded-full glass-elite border border-white/10 flex items-center justify-center text-brand-gold hover:text-white transition-all duration-500"
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={32} />
           </button>
+          
           <button
             onClick={() => setCurrentImage((p) => (p + 1) % car.images.length)}
-            className="absolute right-6 p-3 bg-bg-surface rounded-full text-text-muted hover:text-text-primary"
+            className="absolute right-10 w-16 h-16 rounded-full glass-elite border border-white/10 flex items-center justify-center text-brand-gold hover:text-white transition-all duration-500"
           >
-            <ChevronRight size={24} />
+            <ChevronRight size={32} />
           </button>
-          <div className="relative w-[90vw] h-[70vh]">
+          
+          <div className="relative w-[90vw] h-[80vh] group">
             {mounted && (
               <Image
                 src={car.images[currentImage]}
-                alt={`${car.make} ${car.model} fullscreen`}
+                alt={`${car.make} ${car.model} expansion`}
                 fill
                 className="object-contain"
               />
             )}
           </div>
-          <div className="absolute bottom-8 flex gap-2">
+
+          <div className="absolute bottom-12 flex gap-4">
             {car.images.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrentImage(i)}
-                className={`w-2 h-2 rounded-full transition-all ${i === currentImage ? 'bg-brand-gold w-6' : 'bg-text-subtle'}`}
+                className={`transition-all duration-1000 rounded-full ${i === currentImage ? 'bg-brand-gold w-16 h-1' : 'bg-white/10 w-4 h-1'}`}
               />
             ))}
           </div>

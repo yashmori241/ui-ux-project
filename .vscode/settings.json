@@ -1,3 +1,7 @@
 {
-    "gitdoc.enabled": true
+    "gitdoc.enabled": true,
+    "css.lint.unknownAtRules": "ignore",
+    "files.associations": {
+      "*.css": "tailwindcss"
+    }
 }
