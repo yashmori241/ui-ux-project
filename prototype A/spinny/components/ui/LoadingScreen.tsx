@@ -4,14 +4,16 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 
 export function LoadingScreen() {
+  const [mounted, setMounted] = useState(false);
   const [show, setShow] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
 
-  // eslint-disable-next-line
   useEffect(() => {
+    setMounted(true);
     if (typeof window === 'undefined') return;
 
+    // Skip if already loaded in this session
     if (sessionStorage.getItem('spinny-loaded')) {
       setShow(false);
       return;
@@ -20,50 +22,65 @@ export function LoadingScreen() {
     setShow(true);
     document.body.style.overflow = 'hidden';
 
+    // Fail-safe: Always hide after 3.5s regardless of GSAP
+    const timer = setTimeout(() => {
+      setShow(false);
+      document.body.style.overflow = '';
+      sessionStorage.setItem('spinny-loaded', 'true');
+    }, 3500);
+
     const svg = svgRef.current;
     const container = containerRef.current;
     if (!svg || !container) return;
 
     const paths = svg.querySelectorAll('path');
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        gsap.to(container, {
-          yPercent: -100,
-          duration: 0.8,
-          ease: 'power3.inOut',
-          onComplete: () => {
-            setShow(false);
-            document.body.style.overflow = '';
-            sessionStorage.setItem('spinny-loaded', 'true');
-          },
-        });
-      },
-    });
-
-    paths.forEach((path) => {
-      const length = path.getTotalLength();
-      gsap.set(path, {
-        strokeDasharray: length,
-        strokeDashoffset: length,
-        fill: 'transparent',
+    try {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          gsap.to(container, {
+            yPercent: -100,
+            duration: 0.8,
+            ease: 'power3.inOut',
+            onComplete: () => {
+              clearTimeout(timer);
+              setShow(false);
+              document.body.style.overflow = '';
+              sessionStorage.setItem('spinny-loaded', 'true');
+            },
+          });
+        },
       });
-    });
 
-    tl.to(paths, {
-      strokeDashoffset: 0,
-      duration: 1.5,
-      stagger: 0.1,
-      ease: 'power2.inOut',
-    }).to(paths, {
-      fill: '#C9A84C',
-      duration: 0.4,
-      ease: 'power2.out',
-    }, '-=0.3');
+      paths.forEach((path) => {
+        const length = path.getTotalLength();
+        gsap.set(path, {
+          strokeDasharray: length,
+          strokeDashoffset: length,
+          fill: 'transparent',
+        });
+      });
 
+      tl.to(paths, {
+        strokeDashoffset: 0,
+        duration: 1.5,
+        stagger: 0.1,
+        ease: 'power2.inOut',
+      }).to(paths, {
+        fill: '#C9A84C',
+        duration: 0.4,
+        ease: 'power2.out',
+      }, '-=0.3');
+    } catch (e) {
+      console.warn('Loader animation failed:', e);
+      setShow(false); // Immediate fallback on error
+      document.body.style.overflow = '';
+    }
+
+    return () => clearTimeout(timer);
   }, []);
 
-  if (!show) return null;
+  if (!mounted || !show) return null;
 
   return (
     <div ref={containerRef} className="loading-screen">

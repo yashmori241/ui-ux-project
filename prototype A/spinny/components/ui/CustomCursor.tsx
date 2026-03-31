@@ -4,22 +4,20 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 
 export function CustomCursor() {
+  const [mounted, setMounted] = useState(false);
   const outerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
-  // eslint-disable-next-line
   useEffect(() => {
+    setMounted(true);
     if (typeof window === 'undefined') return;
 
     // Only show on devices with fine pointer (desktop)
     const hasFineMouse = window.matchMedia('(pointer: fine)').matches;
     if (!hasFineMouse) return;
-
-    setIsVisible(true);
-    document.documentElement.classList.add('has-custom-cursor');
 
     const outer = outerRef.current;
     const inner = innerRef.current;
@@ -41,7 +39,15 @@ export function CustomCursor() {
       y: gsap.quickTo(drag, 'y', { duration: 0.2, ease: 'power3.out' }),
     } : null;
 
+    let hasMoved = false;
+
     const handleMouseMove = (e: MouseEvent) => {
+      if (!hasMoved) {
+        hasMoved = true;
+        setIsVisible(true);
+        // Only hide native cursor AFTER custom cursor is moving
+        document.documentElement.classList.add('has-custom-cursor');
+      }
       quickOuter.x(e.clientX - 16);
       quickOuter.y(e.clientY - 16);
       quickInner.x(e.clientX - 3);
@@ -98,7 +104,7 @@ export function CustomCursor() {
           height: 32,
           borderRadius: '50%',
           border: '1px solid rgba(255,255,255,0.6)',
-          // Removed React transform and CSS transition so GSAP can take full control
+          zIndex: 100000,
         }}
       />
       <div
@@ -109,6 +115,7 @@ export function CustomCursor() {
           height: 6,
           borderRadius: '50%',
           backgroundColor: '#fff',
+          zIndex: 100001,
         }}
       />
       {isDragging && (

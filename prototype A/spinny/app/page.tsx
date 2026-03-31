@@ -11,8 +11,9 @@ import { MarqueeStrip } from '@/components/ui/MarqueeStrip';
 import { CarCard } from '@/components/ui/CarCard';
 import { cars } from '@/lib/data/cars';
 
-gsap.registerPlugin(ScrollTrigger);
+// Removed top-level ScrollTrigger registration for SSR safety
 
+/* ===================== HERO SECTION ===================== */
 /* ===================== HERO SECTION ===================== */
 function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -20,47 +21,55 @@ function HeroSection() {
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
+    if (typeof window === 'undefined') return;
+    
+    let ctx: gsap.Context;
+    try {
+      gsap.registerPlugin(ScrollTrigger);
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
 
-    const ctx = gsap.context(() => {
-      // Parallax on hero image
-      if (imgRef.current) {
-        gsap.to(imgRef.current, {
-          yPercent: 30,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
-      }
+      ctx = gsap.context(() => {
+        // Parallax on hero image
+        if (imgRef.current) {
+          gsap.to(imgRef.current, {
+            yPercent: 30,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: heroRef.current,
+              start: 'top top',
+              end: 'bottom top',
+              scrub: true,
+            },
+          });
+        }
 
-      // Content stagger entrance
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      tl.from('.hero-label', { opacity: 0, y: 20, duration: 0.6, delay: 0.3 })
-        .from('.hero-line-1', { opacity: 0, y: 60, duration: 0.8 }, 0.7)
-        .from('.hero-line-2', { opacity: 0, y: 60, duration: 0.8 }, 0.9)
-        .from('.hero-sub', { opacity: 0, y: 20, duration: 0.6 }, 1.1)
-        .from('.hero-ctas', { opacity: 0, y: 20, duration: 0.6 }, 1.3);
+        // Content stagger entrance
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        tl.from('.hero-label', { opacity: 1, y: 20, duration: 0.6, delay: 0.3 })
+          .from('.hero-line-1', { opacity: 1, y: 60, duration: 0.8 }, 0.7)
+          .from('.hero-line-2', { opacity: 1, y: 60, duration: 0.8 }, 0.9)
+          .from('.hero-sub', { opacity: 1, y: 20, duration: 0.6 }, 1.1)
+          .from('.hero-ctas', { opacity: 1, y: 20, duration: 0.6 }, 1.3);
 
-      // Scroll indicator fade
-      if (scrollIndicatorRef.current) {
-        gsap.to(scrollIndicatorRef.current, {
-          opacity: 0,
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: '80px top',
-            end: '160px top',
-            scrub: true,
-          },
-        });
-      }
-    }, heroRef);
+        // Scroll indicator fade
+        if (scrollIndicatorRef.current) {
+          gsap.to(scrollIndicatorRef.current, {
+            opacity: 0,
+            scrollTrigger: {
+              trigger: heroRef.current,
+              start: '80px top',
+              end: '160px top',
+              scrub: true,
+            },
+          });
+        }
+      }, heroRef);
 
-    return () => ctx.revert();
+      return () => ctx.revert();
+    } catch (e) {
+      console.warn('Hero GSAP failed:', e);
+    }
   }, []);
 
   return (
@@ -93,12 +102,13 @@ function HeroSection() {
             <p className="hero-label text-label text-brand-gold mb-6">
               INDIA&apos;S MOST TRUSTED USED CAR PLATFORM
             </p>
-            <h1>
-              <span className="hero-line-1 text-display-xl block">Find Your</span>
-              <span className="hero-line-2 text-display-xl block">Perfect Car.</span>
+            <h1 className="hero-title relative">
+              <span className="hero-line-1 text-display-xl block tracking-[-0.03em] leading-[0.95]" style={{ textShadow: '0 10px 40px rgba(0,0,0,0.5)' }}>Find Your</span>
+              <span className="hero-line-2 text-display-xl block tracking-[-0.03em] leading-[0.95]" style={{ textShadow: '0 10px 40px rgba(0,0,0,0.5)' }}>Perfect Car.</span>
             </h1>
-            <p className="hero-sub text-lg text-text-muted mt-6 font-body" style={{ fontWeight: 300 }}>
-              Certified · Guaranteed · Delivered to You.
+            <p className="hero-sub text-lg text-text-muted mt-8 font-body max-w-[480px]" style={{ fontWeight: 300, lineHeight: 1.6 }}>
+              India&apos;s most trusted certified used car platform. <br className="hidden md:block" />
+              Guaranteed Quality · Delivered to Your Door.
             </p>
             <div className="hero-ctas flex gap-4 mt-10 flex-wrap">
               <Link href="/browse">
@@ -168,23 +178,21 @@ function TrustNumbers() {
   ];
 
   return (
-    <section ref={sectionRef} className="bg-[#111111] py-24">
+    <section ref={sectionRef} className="bg-bg-primary py-32">
       <div className="max-w-[1400px] mx-auto px-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, i) => (
             <div
               key={stat.label}
-              className={`text-center ${
-                i < 3 ? 'lg:border-r lg:border-brand-gold/20' : ''
-              }`}
+              className="glass-gold rounded-3xl p-10 text-center glow-accent"
             >
-              <div className="text-stat">
+              <div className="text-stat gold-text-gradient font-black">
                 <span className="stat-number" data-target={stat.number}>
                   0
                 </span>
                 <span>{stat.suffix}</span>
               </div>
-              <p className="text-label text-text-muted mt-3">{stat.label}</p>
+              <p className="text-label text-text-muted mt-4 font-bold tracking-widest leading-loose">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -623,23 +631,22 @@ function BrandGrid() {
         <p className="text-label text-brand-gold mb-4 text-center">POPULAR BRANDS</p>
         <h2 className="text-display-md text-center mb-12">Explore by Brand.</h2>
 
-        <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
           {brands.map((brand) => (
             <Link href={`/browse?brand=${encodeURIComponent(brand)}`} key={brand}>
               <div
-                className="bg-bg-surface border border-border-default rounded-card p-6 text-center
-                  transition-all duration-300 ease-luxury hover:border-brand-gold/30 cursor-pointer"
+                className="glass rounded-2xl p-8 text-center transition-all duration-500 ease-luxury hover:border-brand-gold/40 cursor-pointer card-hover"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
                 style={{ transition: 'transform 0.1s ease-out, border-color 0.3s ease' }}
                 data-cursor
               >
-                <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-bg-surface2 flex items-center justify-center">
-                  <span className="text-lg font-display font-bold text-brand-gold">
+                <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-bg-surface2/50 flex items-center justify-center border border-white/5 shadow-inner">
+                  <span className="text-xl font-display font-black gold-text-gradient">
                     {brand[0]}
                   </span>
                 </div>
-                <span className="text-sm text-text-muted font-body">{brand}</span>
+                <span className="text-sm font-body font-semibold tracking-wide text-text-muted hover:text-brand-gold transition-colors">{brand}</span>
               </div>
             </Link>
           ))}
@@ -652,23 +659,31 @@ function BrandGrid() {
 /* ===================== CTA SECTION ===================== */
 function CTASection() {
   return (
-    <section className="py-24 bg-bg-primary">
-      <div className="max-w-[1400px] mx-auto px-6 text-center">
-        <h2 className="text-display-lg mb-4">Ready to Find Your<br />Perfect Car?</h2>
-        <p className="text-text-muted text-lg mb-10 font-body">
-          Join 2,00,000+ happy customers who found their dream car on Spinny.
-        </p>
-        <div className="flex gap-4 justify-center flex-wrap">
-          <Link href="/browse">
-            <MagneticButton variant="gold">
-              Browse Cars →
-            </MagneticButton>
-          </Link>
-          <Link href="/sell">
-            <MagneticButton variant="outline">
-              Sell Your Car
-            </MagneticButton>
-          </Link>
+    <section className="py-40 relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute inset-0 bg-bg-primary" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-brand-gold/10 blur-[120px] rounded-full pointer-events-none" />
+      
+      <div className="max-w-[1400px] mx-auto px-6 text-center relative z-10">
+        <div className="glass p-16 rounded-[40px] border-white/5 inline-block w-full max-w-5xl">
+          <p className="text-label text-brand-gold mb-6 tracking-[0.2em]">GET STARTED</p>
+          <h2 className="text-display-lg mb-6 leading-tight">Ready to Find Your<br />Perfect Car?</h2>
+          <p className="text-text-muted text-xl mb-12 max-w-2xl mx-auto font-body leading-relaxed">
+            Join 2,00,000+ happy customers who found their dream car on Spinny. <br className="hidden md:block" />
+            Experience a new standard of trust and quality.
+          </p>
+          <div className="flex gap-6 justify-center flex-wrap">
+            <Link href="/browse">
+              <MagneticButton variant="gold" className="px-10 py-5 text-lg">
+                Browse 10,000+ Cars →
+              </MagneticButton>
+            </Link>
+            <Link href="/sell">
+              <MagneticButton variant="outline" className="px-10 py-5 text-lg">
+                Sell Your Car
+              </MagneticButton>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

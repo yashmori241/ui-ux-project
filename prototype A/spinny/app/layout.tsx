@@ -45,7 +45,6 @@ export default function RootLayout({
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body className="font-body bg-bg-primary text-text-primary antialiased">
         <LenisProvider>
-          <LoadingScreen />
           <CustomCursor />
           <ScrollProgress />
           <Navbar />
@@ -53,6 +52,7 @@ export default function RootLayout({
             <main>{children}</main>
           </ToastProvider>
           <Footer />
+          <LoadingScreen />
         </LenisProvider>
       </body>
     </html>
