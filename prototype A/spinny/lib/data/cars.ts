@@ -40,9 +40,9 @@ export const cars: Car[] = [
     owners: 1,
     registrationState: "Delhi",
     images: [
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80",
       "https://images.unsplash.com/photo-1549317661-bd32c8ce0afa?w=800&q=80",
       "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800&q=80",
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800&q=80",
     ],
     features: ["Touchscreen", "Rear Camera", "Push Start", "Climate Control", "LED DRLs"],
     inspectionScore: 184,

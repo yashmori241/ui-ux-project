@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Search, CheckCircle, Home, Key } from 'lucide-react';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { MarqueeStrip } from '@/components/ui/MarqueeStrip';
 import { CarCard } from '@/components/ui/CarCard';
@@ -178,9 +178,9 @@ function TrustNumbers() {
   ];
 
   return (
-    <section ref={sectionRef} className="bg-bg-primary py-32">
+    <section ref={sectionRef} className="bg-bg-primary py-32 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, i) => (
             <div
               key={stat.label}
@@ -206,25 +206,25 @@ const howItWorksSteps = [
     num: '01',
     title: 'Browse',
     desc: '10,000+ certified cars at your fingertips. Filter by brand, budget, body type, and more.',
-    icon: '🔍',
+    icon: <Search className="w-10 h-10 text-brand-gold" />,
   },
   {
     num: '02',
     title: 'Inspect',
     desc: 'Every car verified with a 200-point quality check. No hidden damages, no surprises.',
-    icon: '✓',
+    icon: <CheckCircle className="w-10 h-10 text-brand-gold" />,
   },
   {
     num: '03',
     title: 'Test Drive',
     desc: 'We bring the car to you. Test drive at your doorstep, no pressure.',
-    icon: '🏠',
+    icon: <Home className="w-10 h-10 text-brand-gold" />,
   },
   {
     num: '04',
     title: 'Own It',
     desc: 'Seamless paperwork. RC transfer handled. Delivered to your door with a 5-day money-back guarantee.',
-    icon: '🔑',
+    icon: <Key className="w-10 h-10 text-brand-gold" />,
   },
 ];
 
@@ -243,9 +243,9 @@ function HowItWorks() {
             scrollTrigger: {
               trigger: '.how-it-works',
               start: 'top top',
-              end: '+=400%',
+              end: '+=300%', // Tightened to remove black space
               pin: '.how-it-works-inner',
-              scrub: 0.8,
+              scrub: 1,
               anticipatePin: 1,
             },
           });
@@ -319,8 +319,8 @@ function HowItWorks() {
                     </p>
                   </div>
                   <div className="flex-1 flex items-center justify-center">
-                    <div className="w-64 h-64 rounded-full bg-bg-surface border border-border-default flex items-center justify-center">
-                      <span className="text-7xl">{step.icon}</span>
+                    <div className="w-64 h-64 rounded-full bg-bg-surface border border-border-default flex items-center justify-center glass shadow-2xl">
+                      {step.icon}
                     </div>
                   </div>
                 </div>
@@ -348,7 +348,7 @@ function HowItWorks() {
                   <span className="text-4xl font-display font-bold gold-text-gradient">
                     {step.num}
                   </span>
-                  <div className="w-12 h-12 rounded-full bg-bg-surface2 flex items-center justify-center text-2xl">
+                  <div className="w-16 h-16 rounded-full bg-bg-surface2 flex items-center justify-center glass shadow-lg">
                     {step.icon}
                   </div>
                 </div>
@@ -672,14 +672,14 @@ function CTASection() {
             Join 2,00,000+ happy customers who found their dream car on Spinny. <br className="hidden md:block" />
             Experience a new standard of trust and quality.
           </p>
-          <div className="flex gap-6 justify-center flex-wrap">
+          <div className="flex gap-8 justify-center flex-wrap items-center mt-4">
             <Link href="/browse">
-              <MagneticButton variant="gold" className="px-10 py-5 text-lg">
+              <MagneticButton variant="gold" className="px-12 py-6 text-xl shadow-[0_0_50px_rgba(201,168,76,0.3)]">
                 Browse 10,000+ Cars →
               </MagneticButton>
             </Link>
             <Link href="/sell">
-              <MagneticButton variant="outline" className="px-10 py-5 text-lg">
+              <MagneticButton variant="outline" className="px-12 py-6 text-xl border-white/20">
                 Sell Your Car
               </MagneticButton>
             </Link>

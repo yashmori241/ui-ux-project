@@ -1,3 +1,4 @@
+import { Globe } from 'lucide-react';
 import Link from 'next/link';
 
 export function Footer() {
@@ -59,15 +60,20 @@ export function Footer() {
               and free RC transfer.
             </p>
             <div className="flex gap-4">
-              {['Twitter', 'Instagram', 'LinkedIn', 'YouTube'].map((social) => (
+              {[
+                { icon: Globe, name: 'X' },
+                { icon: Globe, name: 'Instagram' },
+                { icon: Globe, name: 'LinkedIn' },
+                { icon: Globe, name: 'YouTube' }
+              ].map((social) => (
                 <a
-                  key={social}
+                  key={social.name}
                   href="#"
                   className="w-10 h-10 rounded-full bg-bg-surface border border-border-default flex items-center justify-center
-                    text-text-muted text-xs hover:border-brand-gold hover:text-brand-gold transition-all duration-300"
+                    text-text-muted hover:border-brand-gold hover:text-brand-gold transition-all duration-300"
                   data-cursor
                 >
-                  {social[0]}
+                  <social.icon size={18} />
                 </a>
               ))}
             </div>
