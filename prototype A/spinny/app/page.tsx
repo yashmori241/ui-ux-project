@@ -70,15 +70,17 @@ function HeroSection() {
   return (
     <section ref={heroRef} className="relative w-full overflow-hidden" style={{ height: '100svh' }}>
       {/* Background Image */}
-      <div ref={imgRef} className="absolute inset-0 w-full h-[140%] -top-[20%] overflow-hidden" suppressHydrationWarning>
-        <Image
-          src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1920&q=80"
-          alt="Premium dark car on dramatic background"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+      <div ref={imgRef} className="absolute inset-0 w-full h-[140%] -top-[20%] overflow-hidden">
+        <div className="absolute inset-0" suppressHydrationWarning>
+          <Image
+            src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1920&q=80"
+            alt="Premium dark car on dramatic background"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
       </div>
 
       {/* Overlay */}
