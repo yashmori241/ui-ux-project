@@ -62,7 +62,7 @@ export default function LoginPage() {
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-3 mb-6 opacity-50">
               <div className="w-8 h-[1px] bg-brand-gold/50" />
-              <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand-gold">WELCOME BACK</p>
+              <p className="text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-brand-gold">WELCOME BACK</p>
               <div className="w-8 h-[1px] bg-brand-gold/50" />
             </div>
             
@@ -70,7 +70,7 @@ export default function LoginPage() {
               Sign In to <br />
               <span className="italic font-display gold-text-gradient">Spinny</span><span className="text-brand-gold">.</span>
             </h1>
-            <p className="text-text-muted text-sm tracking-wide opacity-70">
+            <p className="text-text-muted text-base tracking-wide opacity-70">
               Access your account to manage shortlists and bookings.
             </p>
           </div>
@@ -83,13 +83,13 @@ export default function LoginPage() {
             />
             <button 
               onClick={() => handleTabSwitch('login')} 
-              className={`relative z-10 flex-1 py-3 text-[11px] font-bold uppercase tracking-[0.2em] rounded-full transition-colors duration-500 ${activeTab === 'login' ? 'text-bg-primary' : 'text-text-muted hover:text-text-primary'}`}
+              className={`relative z-10 flex-1 py-3 text-[13px] md:text-sm font-bold uppercase tracking-[0.2em] rounded-full transition-colors duration-500 ${activeTab === 'login' ? 'text-bg-primary' : 'text-text-muted hover:text-text-primary'}`}
             >
               Login
             </button>
             <button 
               onClick={() => handleTabSwitch('register')} 
-              className={`relative z-10 flex-1 py-3 text-[11px] font-bold uppercase tracking-[0.2em] rounded-full transition-colors duration-500 ${activeTab === 'register' ? 'text-bg-primary' : 'text-text-muted hover:text-text-primary'}`}
+              className={`relative z-10 flex-1 py-3 text-[13px] md:text-sm font-bold uppercase tracking-[0.2em] rounded-full transition-colors duration-500 ${activeTab === 'register' ? 'text-bg-primary' : 'text-text-muted hover:text-text-primary'}`}
             >
               Register
             </button>
@@ -98,44 +98,44 @@ export default function LoginPage() {
           <div className="space-y-6">
             {activeTab === 'register' && (
               <div>
-                <label className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted/80 mb-3 block">Full Name</label>
+                <label className="text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-text-muted/80 mb-3 block">Full Name</label>
                 <input 
                   type="text" 
                   value={name} 
                   onChange={(e) => setName(e.target.value)} 
                   placeholder="Enter your full name"
-                  className="w-full bg-white/[0.04] border border-white/8 rounded-xl px-5 py-4 text-sm text-text-primary focus:border-brand-gold/40 focus:bg-white/[0.06] focus:outline-none transition-all placeholder:text-text-subtle/60" 
+                  className="w-full bg-white/[0.04] border border-white/8 rounded-xl px-5 py-4 text-base text-text-primary focus:border-brand-gold/40 focus:bg-white/[0.06] focus:outline-none transition-all placeholder:text-text-subtle/60" 
                 />
               </div>
             )}
             
             <div>
-              <label className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted/80 mb-3 block">Phone Number</label>
+              <label className="text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-text-muted/80 mb-3 block">Phone Number</label>
               <div className="flex gap-3">
-                <div className="flex items-center px-4 bg-white/[0.04] border border-white/8 rounded-xl text-sm text-brand-gold font-mono">+91</div>
+                <div className="flex items-center px-4 bg-white/[0.04] border border-white/8 rounded-xl text-base text-brand-gold font-mono">+91</div>
                 <input 
                   type="tel" 
                   value={phone} 
                   onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))} 
                   placeholder="Enter 10-digit mobile number" 
                   maxLength={10}
-                  className="flex-1 bg-white/[0.04] border border-white/8 rounded-xl px-5 py-4 text-sm text-text-primary focus:border-brand-gold/40 focus:bg-white/[0.06] focus:outline-none transition-all placeholder:text-text-subtle/60" 
+                  className="flex-1 bg-white/[0.04] border border-white/8 rounded-xl px-5 py-4 text-base text-text-primary focus:border-brand-gold/40 focus:bg-white/[0.06] focus:outline-none transition-all placeholder:text-text-subtle/60" 
                 />
               </div>
             </div>
 
-            {error && <p className="text-red-400 text-sm font-medium text-center py-1">{error}</p>}
+            {error && <p className="text-red-400 text-base font-medium text-center py-1">{error}</p>}
 
             {!otpSent ? (
               <button 
                 onClick={handleSendOtp} 
-                className="w-full py-5 bg-brand-gold text-bg-primary font-bold text-[12px] uppercase tracking-[0.2em] rounded-full hover:shadow-[0_0_50px_rgba(197,160,89,0.5)] transition-all duration-700 ease-luxury transform hover:scale-[1.02] active:scale-[0.98] mt-2"
+                className="w-full py-5 bg-brand-gold text-bg-primary font-bold text-sm md:text-base uppercase tracking-[0.2em] rounded-full hover:shadow-[0_0_50px_rgba(197,160,89,0.5)] transition-all duration-700 ease-luxury transform hover:scale-[1.02] active:scale-[0.98] mt-2"
               >
                 Send OTP
               </button>
             ) : (
               <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 pt-2">
-                <label className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted/80 mb-4 block text-center">Enter 6-digit OTP</label>
+                <label className="text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-text-muted/80 mb-4 block text-center">Enter 6-digit OTP</label>
                 <div className="flex gap-3 justify-center mb-6">
                   {otp.map((digit, i) => (
                     <input 
@@ -151,7 +151,7 @@ export default function LoginPage() {
                   ))}
                 </div>
                 <div className="pt-6 border-t border-white/5 text-center">
-                  <p className="text-sm text-text-muted">Demo OTP: <span className="text-brand-gold font-mono font-bold">123456</span></p>
+                  <p className="text-base text-text-muted">Demo OTP: <span className="text-brand-gold font-mono font-bold">123456</span></p>
                 </div>
               </div>
             )}
