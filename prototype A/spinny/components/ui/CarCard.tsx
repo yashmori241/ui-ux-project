@@ -34,15 +34,16 @@ export function CarCard({ car }: CarCardProps) {
         <div className="absolute inset-0 bg-gradient-to-br from-brand-gold/[0.05] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-10" />
         
         {/* Image */}
-        <div className="relative aspect-[16/11] overflow-hidden" suppressHydrationWarning>
-          <Image
-            src={car.images[0]}
-            alt={`${car.make} ${car.model}`}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover brightness-[0.85] transition-all duration-[2000ms] ease-luxury group-hover:scale-110 group-hover:brightness-100"
-            suppressHydrationWarning
-          />
+        <div className="relative aspect-[16/11] overflow-hidden">
+          <div className="absolute inset-0" suppressHydrationWarning>
+            <Image
+              src={car.images[0]}
+              alt={`${car.make} ${car.model}`}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover brightness-[0.85] transition-all duration-[2000ms] ease-luxury group-hover:scale-110 group-hover:brightness-100"
+            />
+          </div>
           
           {/* Overlays */}
           <div className="absolute inset-0 bg-gradient-to-t from-bg-primary via-transparent to-transparent opacity-50" />
