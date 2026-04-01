@@ -53,7 +53,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div ref={sectionRef} className="pt-[80px] min-h-screen bg-bg-primary relative overflow-hidden">
+    <div ref={sectionRef} className="min-h-screen bg-bg-primary relative overflow-hidden">
       {/* Background Atmosphere */}
       <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-brand-gold/[0.02] blur-[150px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       

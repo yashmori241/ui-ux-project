@@ -59,7 +59,7 @@ export default function CarDetailPage() {
 
   if (!car) {
     return (
-      <div className="pt-[80px] min-h-screen bg-bg-primary flex items-center justify-center">
+      <div className="min-h-screen bg-bg-primary flex items-center justify-center">
         <div className="text-center">
           <p className="text-display-md text-text-subtle mb-4">Car not found</p>
           <Link href="/browse" className="text-brand-gold hover:underline text-lg">Back to Browse</Link>

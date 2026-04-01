@@ -48,10 +48,12 @@ export function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-[9990] transition-all duration-700 ease-luxury ${
-          scrolled
-            ? 'bg-bg-primary/90 backdrop-blur-2xl border-b border-white/5'
-            : 'bg-transparent'
+        className={`${
+          pathname === '/' ? 'fixed' : 'sticky'
+        } top-0 left-0 right-0 z-[9990] transition-all duration-700 ease-luxury ${
+          scrolled || pathname !== '/'
+            ? 'bg-bg-primary shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5'
+            : 'bg-transparent border-b border-transparent'
         }`}
         style={{ height: 80 }}
       >

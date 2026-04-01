@@ -93,7 +93,7 @@ export default function SellPage() {
   }, [step, estimatedPrice]);
 
   return (
-    <div className="pt-[80px] min-h-screen bg-bg-primary relative overflow-hidden">
+    <div className="min-h-screen bg-bg-primary relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-brand-gold/[0.03] blur-[180px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       
       <div className="max-w-[1400px] mx-auto px-6 py-20 flex flex-col lg:flex-row gap-20 items-start">
