@@ -9,16 +9,16 @@ import { z } from 'zod';
 import { brands } from '@/lib/data/cars';
 
 const carSchema = z.object({
-  brand: z.string().min(1, 'Brand is required'),
-  model: z.string().min(1, 'Model is required'),
-  year: z.string().min(1, 'Year is required'),
-  variant: z.string().min(1, 'Variant is required'),
-  mileage: z.string().min(1, 'Mileage is required'),
+  brand: z.string().min(1, 'Please select a brand'),
+  model: z.string().min(1, 'Please enter the model name'),
+  year: z.string().min(1, 'Please select a year'),
+  variant: z.string().min(1, 'Please enter the variant'),
+  mileage: z.string().min(1, 'Please enter the mileage'),
 });
 
 const contactSchema = z.object({
-  name: z.string().min(2, 'Name is required'),
-  phone: z.string().regex(/^[6-9]\d{9}$/, 'Enter valid 10-digit phone number'),
+  name: z.string().min(2, 'Please enter your full name'),
+  phone: z.string().regex(/^[6-9]\d{9}$/, 'Enter a valid 10-digit mobile number'),
 });
 
 export default function SellPage() {
@@ -34,7 +34,7 @@ export default function SellPage() {
   const carForm = useForm({ resolver: zodResolver(carSchema) });
   const contactForm = useForm({ resolver: zodResolver(contactSchema) });
 
-  const steps = ['Car Details', 'Contact Info', 'Get Price'];
+  const steps = ['Car Details', 'Your Info', 'Get Price'];
 
   const goToStep = (nextStep: number) => {
     if (stepRef.current) {
@@ -66,7 +66,6 @@ export default function SellPage() {
       otpRefs.current[index + 1]?.focus();
     }
 
-    // Check OTP
     if (newOtp.join('') === '123456') {
       setOtpVerified(true);
       setTimeout(() => {
@@ -95,64 +94,63 @@ export default function SellPage() {
 
   return (
     <div className="pt-[80px] min-h-screen bg-bg-primary relative overflow-hidden">
-      {/* Background Atmosphere */}
       <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-brand-gold/[0.03] blur-[180px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       
-      <div className="max-w-[1400px] mx-auto px-6 py-20 flex flex-col lg:flex-row gap-24 items-start">
-        {/* Left: Editorial Content Asset */}
+      <div className="max-w-[1400px] mx-auto px-6 py-20 flex flex-col lg:flex-row gap-20 items-start">
+        {/* Left: Description */}
         <div className="lg:w-1/2 lg:sticky lg:top-[140px]">
-           <div className="flex items-center gap-4 mb-10 opacity-60">
+           <div className="flex items-center gap-4 mb-8 opacity-60">
              <div className="w-12 h-[1px] bg-brand-gold/50" />
-             <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold">VALUATION CONCIERGE</p>
+             <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand-gold">SELL YOUR CAR</p>
            </div>
            
-           <h1 className="text-display-lg mb-10 tracking-tighter leading-[0.85]">
-             Automotive Portfolio <br />
-             <span className="italic font-display gold-text-gradient">Liquidation Protocol</span><span className="text-brand-gold">.</span>
+           <h1 className="text-display-lg mb-8 tracking-tighter leading-tight">
+             Get the Best Price<br />
+             <span className="italic font-display gold-text-gradient">for Your Car</span><span className="text-brand-gold">.</span>
            </h1>
            
-           <p className="text-text-muted text-lg font-body max-w-lg leading-relaxed opacity-70 font-light mb-16">
-             The definitive gateway for transitioning high-value automotive assets. 
-             Experience a sophisticated liquidation process engineered for precision, transparency, and immediate fiscal settlement.
+           <p className="text-text-muted text-lg font-body max-w-lg leading-relaxed opacity-75 mb-14">
+             Sell your car with confidence. Get a fair price instantly, 
+             enjoy free doorstep inspection, and receive immediate payment upon completion.
            </p>
            
-           <div className="space-y-10">
+           <div className="space-y-8">
               {[
-                { title: 'REAL-TIME VALUATION', desc: 'Instant preliminary assessment based on global market telemetry.' },
-                { title: 'TECHNICAL VERIFICATION', desc: 'Forensic doorstep evaluation conducted by master technicians.' },
-                { title: 'FISCAL SETTLEMENT', desc: 'Immediate fund securement upon protocol verification.' }
+                { title: 'Instant Valuation', desc: 'Get a preliminary price estimate based on real market data.' },
+                { title: 'Free Home Inspection', desc: 'Our expert inspects your car at your doorstep — no charges.' },
+                { title: 'Same-Day Payment', desc: 'Get paid the same day after the deal is finalized.' }
               ].map((item, i) => (
-                <div key={i} className="flex gap-6 items-start group">
-                   <div className="w-6 h-6 rounded-full border border-brand-gold/20 flex items-center justify-center mt-1 group-hover:border-brand-gold/50 transition-all duration-1000">
-                      <div className="w-1.5 h-1.5 rounded-full bg-brand-gold shadow-[0_0_10px_rgba(197,160,89,0.5)]" />
+                <div key={i} className="flex gap-5 items-start group">
+                   <div className="w-6 h-6 rounded-full border border-brand-gold/20 flex items-center justify-center mt-0.5 group-hover:border-brand-gold/40 transition-all duration-700">
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-gold shadow-[0_0_8px_rgba(197,160,89,0.5)]" />
                    </div>
                    <div>
-                     <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-gold/80 mb-2">{item.title}</h4>
-                     <p className="text-sm text-text-muted opacity-60 font-medium group-hover:opacity-100 transition-opacity duration-700">{item.desc}</p>
+                     <h4 className="text-[12px] font-bold uppercase tracking-[0.15em] text-text-primary/90 mb-1.5">{item.title}</h4>
+                     <p className="text-sm text-text-muted opacity-65 group-hover:opacity-100 transition-opacity duration-500">{item.desc}</p>
                    </div>
                 </div>
               ))}
            </div>
         </div>
 
-        {/* Right: Liquidation Terminal Module */}
-        <div className="lg:w-1/2 w-full max-w-xl glass-elite p-12 lg:p-16 luxury-border rounded-[48px] relative overflow-hidden shadow-[0_60px_120px_rgba(0,0,0,0.8)]">
+        {/* Right: Form */}
+        <div className="lg:w-1/2 w-full max-w-xl glass-elite p-10 lg:p-14 luxury-border rounded-[32px] relative overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.8)]">
            <div className="absolute top-0 right-0 w-80 h-80 bg-brand-gold/[0.03] blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
-          {/* Verification Progress */}
-          <div className="flex items-center gap-4 mb-16">
+          {/* Step Progress */}
+          <div className="flex items-center gap-3 mb-14">
             {steps.map((s, i) => (
-              <div key={s} className="flex items-center gap-4 flex-1">
+              <div key={s} className="flex items-center gap-3 flex-1">
                 <div 
-                  className={`w-10 h-10 rounded-full flex items-center justify-center text-[10px] font-mono font-bold transition-all duration-1000
-                    ${i <= step ? 'bg-brand-gold text-bg-primary shadow-[0_0_20px_rgba(197,160,89,0.4)]' : 'bg-white/5 border border-white/5 text-text-muted/40'}`}
+                  className={`w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-mono font-bold transition-all duration-700
+                    ${i <= step ? 'bg-brand-gold text-bg-primary shadow-[0_0_15px_rgba(197,160,89,0.4)]' : 'bg-white/5 border border-white/5 text-text-muted/40'}`}
                 >
-                  {i < step ? <Check size={16} /> : `0${i + 1}`}
+                  {i < step ? <Check size={14} /> : `0${i + 1}`}
                 </div>
                 {i < steps.length - 1 && (
                   <div className="flex-1 h-[1px] bg-white/5 relative">
                     <div 
-                      className="absolute inset-0 bg-brand-gold transition-all duration-1000 ease-luxury"
+                      className="absolute inset-0 bg-brand-gold transition-all duration-700"
                       style={{ width: i < step ? '100%' : '0%' }} 
                     />
                   </div>
@@ -162,129 +160,129 @@ export default function SellPage() {
           </div>
 
           <div ref={stepRef}>
-            {/* Step 1: Asset Identification */}
+            {/* Step 1: Car Details */}
             {step === 0 && (
-              <form onSubmit={handleStep1} className="space-y-10">
-                <div className="space-y-6">
+              <form onSubmit={handleStep1} className="space-y-7">
+                <div className="space-y-5">
                   <div>
-                    <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">PORTFOLIO ORIGIN</label>
+                    <label className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted/70 mb-3 block">Brand</label>
                     <select
                       {...carForm.register('brand')}
-                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-xs text-text-primary uppercase tracking-[0.1em]
-                        focus:border-brand-gold/40 focus:bg-white/[0.05] focus:outline-none transition-all appearance-none cursor-pointer font-mono"
+                      className="w-full bg-white/[0.04] border border-white/8 rounded-xl px-5 py-4 text-sm text-text-primary
+                        focus:border-brand-gold/40 focus:bg-white/[0.06] focus:outline-none transition-all appearance-none cursor-pointer"
                     >
-                      <option value="" className="bg-bg-primary">SELECT MANUFACTURER</option>
+                      <option value="" className="bg-bg-primary">Select brand</option>
                       {brands.map((b) => (<option key={b} value={b} className="bg-bg-primary">{b}</option>))}
                     </select>
                     {carForm.formState.errors.brand && (
-                      <p className="text-brand-red text-[9px] mt-3 font-bold uppercase tracking-widest">{carForm.formState.errors.brand.message as string}</p>
+                      <p className="text-red-400 text-sm mt-2">{carForm.formState.errors.brand.message as string}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">MODEL SPECIFICATION</label>
+                    <label className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted/70 mb-3 block">Model</label>
                     <input
                       {...carForm.register('model')}
-                      placeholder="ENTER NOMINAL MODEL"
-                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-xs text-text-primary
-                        focus:border-brand-gold/40 focus:bg-white/[0.05] focus:outline-none transition-all placeholder:text-text-subtle font-mono tracking-widest"
+                      placeholder="e.g., Swift ZXi+"
+                      className="w-full bg-white/[0.04] border border-white/8 rounded-xl px-5 py-4 text-sm text-text-primary
+                        focus:border-brand-gold/40 focus:bg-white/[0.06] focus:outline-none transition-all placeholder:text-text-subtle/50"
                     />
                     {carForm.formState.errors.model && (
-                      <p className="text-brand-red text-[9px] mt-3 font-bold uppercase tracking-widest">{carForm.formState.errors.model.message as string}</p>
+                      <p className="text-red-400 text-sm mt-2">{carForm.formState.errors.model.message as string}</p>
                     )}
                   </div>
 
-                  <div className="grid grid-cols-2 gap-6">
+                  <div className="grid grid-cols-2 gap-5">
                     <div>
-                      <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">VINTAGE</label>
+                      <label className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted/70 mb-3 block">Year</label>
                       <select
                         {...carForm.register('year')}
-                        className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-5 text-xs text-text-primary
-                          focus:border-brand-gold/40 focus:outline-none transition-all font-mono"
+                        className="w-full bg-white/[0.04] border border-white/8 rounded-xl px-5 py-4 text-sm text-text-primary
+                          focus:border-brand-gold/40 focus:outline-none transition-all"
                       >
-                        <option value="" className="bg-bg-primary">YEAR</option>
+                        <option value="" className="bg-bg-primary">Select year</option>
                         {Array.from({ length: 15 }, (_, i) => 2024 - i).map((y) => (
                           <option key={y} value={y} className="bg-bg-primary">{y}</option>
                         ))}
                       </select>
                     </div>
                     <div>
-                      <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">CONFIGURATION</label>
+                      <label className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted/70 mb-3 block">Variant</label>
                       <input
                         {...carForm.register('variant')}
-                        placeholder="VARIANT"
-                        className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-5 text-xs text-text-primary
-                          focus:border-brand-gold/40 focus:outline-none transition-all placeholder:text-text-subtle font-mono"
+                        placeholder="e.g., LXi, VXi"
+                        className="w-full bg-white/[0.04] border border-white/8 rounded-xl px-5 py-4 text-sm text-text-primary
+                          focus:border-brand-gold/40 focus:outline-none transition-all placeholder:text-text-subtle/50"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">TELEMETRY READING (KM)</label>
+                    <label className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted/70 mb-3 block">Kilometers Driven</label>
                     <input
                       {...carForm.register('mileage')}
-                      placeholder="TOTAL DISPLACEMENT"
-                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-xs text-text-primary
-                        focus:border-brand-gold/40 focus:outline-none transition-all placeholder:text-text-subtle font-mono"
+                      placeholder="e.g., 25,000"
+                      className="w-full bg-white/[0.04] border border-white/8 rounded-xl px-5 py-4 text-sm text-text-primary
+                        focus:border-brand-gold/40 focus:outline-none transition-all placeholder:text-text-subtle/50"
                     />
                   </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-6 bg-brand-gold text-bg-primary font-black text-[10px] uppercase tracking-[0.4em] rounded-full
-                    hover:shadow-[0_0_50px_rgba(197,160,89,0.5)] transition-all duration-700 ease-luxury transform hover:scale-[1.02]"
+                  className="w-full py-5 bg-brand-gold text-bg-primary font-bold text-[12px] uppercase tracking-[0.2em] rounded-full
+                    hover:shadow-[0_0_40px_rgba(197,160,89,0.5)] transition-all duration-700 ease-luxury transform hover:scale-[1.02]"
                 >
-                  INITIALIZE ASSESSMENT <ChevronRight size={14} className="inline ml-2" />
+                  Continue <ChevronRight size={14} className="inline ml-1" />
                 </button>
               </form>
             )}
 
-            {/* Step 2: Verification Sequence */}
+            {/* Step 2: Contact Info */}
             {step === 1 && (
-              <div className="space-y-10">
-                <div className="space-y-8">
+              <div className="space-y-7">
+                <div className="space-y-5">
                   <div>
-                    <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">AUTHORIZED IDENTITY</label>
+                    <label className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted/70 mb-3 block">Full Name</label>
                     <input
                       {...contactForm.register('name')}
-                      placeholder="NOMINAL IDENTITY"
-                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-xs text-text-primary
-                        focus:border-brand-gold/40 focus:outline-none transition-all placeholder:text-text-subtle font-mono"
+                      placeholder="Enter your full name"
+                      className="w-full bg-white/[0.04] border border-white/8 rounded-xl px-5 py-4 text-sm text-text-primary
+                        focus:border-brand-gold/40 focus:outline-none transition-all placeholder:text-text-subtle/50"
                     />
                     {contactForm.formState.errors.name && (
-                      <p className="text-brand-red text-[9px] mt-3 font-bold uppercase tracking-widest">{contactForm.formState.errors.name.message as string}</p>
+                      <p className="text-red-400 text-sm mt-2">{contactForm.formState.errors.name.message as string}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-4 block">TELEMETRY ACCESS LINK</label>
-                    <div className="flex gap-4">
+                    <label className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted/70 mb-3 block">Phone Number</label>
+                    <div className="flex gap-3">
                       <input
                         {...contactForm.register('phone')}
-                        placeholder="CONNECTION SEQUENCE"
+                        placeholder="Enter 10-digit number"
                         maxLength={10}
-                        className="flex-1 bg-white/[0.03] border border-white/5 rounded-2xl px-8 py-5 text-xs text-text-primary
-                          focus:border-brand-gold/40 focus:outline-none transition-all placeholder:text-text-subtle font-mono"
+                        className="flex-1 bg-white/[0.04] border border-white/8 rounded-xl px-5 py-4 text-sm text-text-primary
+                          focus:border-brand-gold/40 focus:outline-none transition-all placeholder:text-text-subtle/50"
                       />
                       {!otpSent && (
                         <button
                           onClick={contactForm.handleSubmit(handleSendOtp)}
-                          className="px-10 py-5 bg-brand-gold text-bg-primary text-[10px] font-black uppercase tracking-[0.3em] rounded-full whitespace-nowrap"
+                          className="px-8 py-4 bg-brand-gold text-bg-primary text-[11px] font-bold uppercase tracking-[0.15em] rounded-xl whitespace-nowrap"
                         >
-                          GENERATE
+                          Send OTP
                         </button>
                       )}
                     </div>
                     {contactForm.formState.errors.phone && (
-                      <p className="text-brand-red text-[9px] mt-3 font-bold uppercase tracking-widest">{contactForm.formState.errors.phone.message as string}</p>
+                      <p className="text-red-400 text-sm mt-2">{contactForm.formState.errors.phone.message as string}</p>
                     )}
                   </div>
 
                   {otpSent && !otpVerified && (
-                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-                      <label className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted/60 mb-6 block text-center">IDENTITY SEQUENCE REQUIRED</label>
-                      <div className="flex gap-4 justify-center">
+                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 pt-2">
+                      <label className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted/70 mb-4 block text-center">Enter 6-digit OTP</label>
+                      <div className="flex gap-3 justify-center">
                         {otp.map((digit, i) => (
                           <input
                             key={i}
@@ -294,47 +292,47 @@ export default function SellPage() {
                             value={digit}
                             onChange={(e) => handleOtpChange(i, e.target.value)}
                             onKeyDown={(e) => handleOtpKeyDown(i, e)}
-                            className="w-12 h-16 bg-white/[0.03] border border-white/5 rounded-2xl text-center text-xl text-text-primary
+                            className="w-12 h-14 bg-white/[0.04] border border-white/8 rounded-xl text-center text-lg text-text-primary
                               focus:border-brand-gold focus:outline-none transition-all font-mono"
                           />
                         ))}
                       </div>
-                      <p className="text-[9px] text-brand-gold text-center mt-8 font-bold uppercase tracking-[0.3em]">Protocol Reference: 123456</p>
+                      <p className="text-sm text-text-muted text-center mt-6">Demo OTP: <span className="text-brand-gold font-mono font-bold">123456</span></p>
                     </div>
                   )}
 
                   {otpVerified && (
-                    <div className="flex items-center justify-center gap-3 text-brand-gold text-[10px] font-bold uppercase tracking-[0.3em] animate-in zoom-in-95 duration-700">
-                      <Check size={18} /> INITIALIZATION SUCCESSFUL
+                    <div className="flex items-center justify-center gap-3 text-brand-gold text-[12px] font-bold uppercase tracking-[0.2em] animate-in zoom-in-95 duration-700 py-4">
+                      <Check size={18} /> Verified Successfully
                     </div>
                   )}
                 </div>
               </div>
             )}
 
-            {/* Step 3: Valuation Manifest */}
+            {/* Step 3: Price Result */}
             {step === 2 && (
-              <div className="text-center py-10">
-                <div className="w-20 h-20 rounded-full border border-brand-gold/30 flex items-center justify-center mx-auto mb-10 relative">
+              <div className="text-center py-8">
+                <div className="w-20 h-20 rounded-full border border-brand-gold/30 flex items-center justify-center mx-auto mb-8 relative">
                   <Check size={32} className="text-brand-gold" />
                   <div className="absolute inset-0 rounded-full border border-brand-gold animate-ping opacity-20" />
                 </div>
                 
-                <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted mb-6">PRELIMINARY ASSESSMENT MANIFEST</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-text-muted mb-4">Estimated Market Value</p>
                 
-                <div ref={priceRef} className="mb-10">
-                  <p className="text-6xl font-display font-black gold-text-gradient tracking-tighter">
+                <div ref={priceRef} className="mb-8">
+                  <p className="text-5xl font-display font-black gold-text-gradient tracking-tighter">
                     ₹{estimatedPrice.toLocaleString('en-IN')}
                   </p>
                 </div>
                 
-                <p className="text-xs text-text-muted font-mono leading-relaxed max-w-sm mx-auto mb-16 opacity-60">
-                  This valuation is a preliminary market assessment. Final settlement is contingent upon institutional technical verification.
+                <p className="text-sm text-text-muted leading-relaxed max-w-sm mx-auto mb-12 opacity-65">
+                  This is a preliminary estimate. Final price will be confirmed after our expert inspects your car.
                 </p>
                 
-                <button className="px-12 py-6 bg-brand-gold text-bg-primary font-black text-[10px] uppercase tracking-[0.4em] rounded-full
-                  hover:shadow-[0_0_50px_rgba(197,160,89,0.5)] transition-all duration-700">
-                  INITIALIZE FORENSIC INSPECTION
+                <button className="px-10 py-5 bg-brand-gold text-bg-primary font-bold text-[12px] uppercase tracking-[0.2em] rounded-full
+                  hover:shadow-[0_0_40px_rgba(197,160,89,0.5)] transition-all duration-700">
+                  Schedule Free Inspection
                 </button>
               </div>
             )}

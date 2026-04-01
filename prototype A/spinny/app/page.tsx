@@ -5,15 +5,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ChevronDown, Search, CheckCircle, Home, Key } from 'lucide-react';
+import { ChevronDown, Search, CheckCircle2, Home, Key, Shield, RotateCcw, FileCheck, Car } from 'lucide-react';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { MarqueeStrip } from '@/components/ui/MarqueeStrip';
 import { CarCard } from '@/components/ui/CarCard';
 import { cars } from '@/lib/data/cars';
 
-// Removed top-level ScrollTrigger registration for SSR safety
-
-/* ===================== HERO SECTION ===================== */
 /* ===================== HERO SECTION ===================== */
 function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -30,7 +27,6 @@ function HeroSection() {
       if (prefersReduced) return;
 
       ctx = gsap.context(() => {
-        // Parallax on hero image
         if (imgRef.current) {
           gsap.to(imgRef.current, {
             yPercent: 30,
@@ -44,15 +40,14 @@ function HeroSection() {
           });
         }
 
-        // Content stagger entrance
         const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-        tl.from('.hero-label', { opacity: 1, y: 20, duration: 0.6, delay: 0.3 })
-          .from('.hero-line-1', { opacity: 1, y: 60, duration: 0.8 }, 0.7)
-          .from('.hero-line-2', { opacity: 1, y: 60, duration: 0.8 }, 0.9)
-          .from('.hero-sub', { opacity: 1, y: 20, duration: 0.6 }, 1.1)
-          .from('.hero-ctas', { opacity: 1, y: 20, duration: 0.6 }, 1.3);
+        tl.from('.hero-label', { opacity: 0, y: 20, duration: 0.6, delay: 0.3 })
+          .from('.hero-line-1', { opacity: 0, y: 60, duration: 0.8 }, 0.5)
+          .from('.hero-line-2', { opacity: 0, y: 60, duration: 0.8 }, 0.7)
+          .from('.hero-line-3', { opacity: 0, y: 60, duration: 0.8 }, 0.9)
+          .from('.hero-sub', { opacity: 0, y: 20, duration: 0.6 }, 1.1)
+          .from('.hero-ctas', { opacity: 0, y: 20, duration: 0.6 }, 1.3);
 
-        // Scroll indicator fade
         if (scrollIndicatorRef.current) {
           gsap.to(scrollIndicatorRef.current, {
             opacity: 0,
@@ -82,7 +77,7 @@ function HeroSection() {
           fill
           priority
           sizes="100vw"
-          className="object-cover animate-ken-burns"
+          className="object-cover"
         />
       </div>
 
@@ -91,75 +86,50 @@ function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(105deg, rgba(5,5,5,0.98) 0%, rgba(5,5,5,0.7) 45%, rgba(5,5,5,0.2) 100%)',
+            'linear-gradient(100deg, rgba(5,5,5,0.97) 0%, rgba(5,5,5,0.75) 40%, rgba(5,5,5,0.3) 100%)',
         }}
       />
 
       {/* Content */}
       <div className="relative z-10 h-full flex items-center">
         <div className="max-w-[1400px] mx-auto px-6 w-full">
-          <div className="max-w-[850px]">
-            <div className="hero-label flex items-center gap-4 mb-8 opacity-60">
-               <div className="w-12 h-[1px] bg-brand-gold/50" />
-               <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold">PORTFOLIO REDEFINED</p>
-            </div>
-            
-            <h1 className="hero-title relative mb-14">
-              <span className="hero-line-1 text-display-xl block tracking-[-0.06em] leading-[0.85] text-text-primary" style={{ textShadow: '0 20px 80px rgba(0,0,0,0.9)' }}>
-                Find Your
-              </span>
-              <span className="hero-line-2 text-display-xl block tracking-[-0.04em] leading-[0.85] italic font-display gold-text-gradient py-4" style={{ textShadow: '0 20px 100px rgba(197,160,89,0.4)' }}>
-                Luxury Heritage
-              </span>
-              <span className="hero-line-3 text-display-xl block tracking-[-0.06em] leading-[0.85] text-text-primary" style={{ textShadow: '0 20px 80px rgba(0,0,0,0.9)' }}>
-                Portfolio<span className="text-brand-gold">.</span>
-              </span>
-            </h1>
+          <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-16">
+            {/* Left Content */}
+            <div className="max-w-[700px]">
+              <div className="hero-label flex items-center gap-4 mb-8 opacity-60">
+                 <div className="w-12 h-[1px] bg-brand-gold/50" />
+                 <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand-gold">PORTFOLIO REDEFINED</p>
+              </div>
+              
+              <h1 className="hero-title relative mb-12">
+                <span className="hero-line-1 text-display-xl block tracking-[-0.04em] leading-[0.9] text-text-primary">
+                  Find Your
+                </span>
+                <span className="hero-line-2 text-display-xl block tracking-[-0.03em] leading-[0.9] italic font-display gold-text-gradient py-2">
+                  Luxury Heritage
+                </span>
+                <span className="hero-line-3 text-display-xl block tracking-[-0.04em] leading-[0.9] text-text-primary">
+                  Portfolio<span className="text-brand-gold">.</span>
+                </span>
+              </h1>
 
-            <p className="hero-sub text-lg text-text-muted mt-12 font-body max-w-[580px] tracking-wide leading-relaxed opacity-70">
-              Curating India&apos;s most prestigious pre-owned automotive assets. 
-              Each vehicle is a testament to engineering excellence and certified provenance.
-            </p>
+              <p className="hero-sub text-xl text-text-muted mt-10 font-body max-w-[540px] tracking-wide leading-relaxed opacity-80">
+                Curating India&apos;s most prestigious pre-owned automotive collection. 
+                Each vehicle is a testament to engineering excellence and certified heritage.
+              </p>
 
-            <div className="hero-ctas flex gap-8 mt-16 flex-wrap items-center">
-              <Link href="/browse">
-                <MagneticButton variant="gold" className="px-12 h-16 text-[10px] font-bold uppercase tracking-[0.3em] rounded-full">
-                  ACCESS COLLECTION
-                </MagneticButton>
-              </Link>
-              <Link href="/sell">
-                <MagneticButton variant="ghost" className="px-12 h-16 text-[10px] font-bold uppercase tracking-[0.3em] border-white/10 hover:border-brand-gold/40 rounded-full">
-                  INITIALIZE ACQUISITION
-                </MagneticButton>
-              </Link>
-            </div>
-            
-            {/* Floating Asset Terminal */}
-            <div className="hidden xl:flex absolute top-1/2 right-[5%] -translate-y-1/2 glass-elite p-12 flex-col gap-10 luxury-border rounded-[48px] w-[340px] animate-in fade-in duration-1000 delay-700 z-20 shadow-[0_40px_100px_rgba(0,0,0,0.8)]">
-               <div className="flex items-center justify-between">
-                 <div className="w-14 h-14 rounded-full border border-brand-gold/20 flex items-center justify-center relative">
-                   <div className="w-2 h-2 rounded-full bg-brand-gold shadow-[0_0_20px_rgba(197,160,89,0.8)]" />
-                   <div className="absolute inset-0 rounded-full border border-brand-gold/40 animate-ping opacity-20" />
-                 </div>
-                 <span className="text-[9px] font-mono text-brand-gold/60 uppercase tracking-widest">LIVE DATA FEED</span>
-               </div>
-               
-               <div>
-                 <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold/60 mb-2">AVAILABLE ASSETS</p>
-                 <p className="text-5xl font-display font-black text-white tracking-tighter">750<span className="text-brand-gold font-light opacity-50">+</span></p>
-                 <p className="text-xs text-text-muted mt-4 font-mono leading-relaxed opacity-60">Verified portfolios under institutional management.</p>
-               </div>
-
-               <div className="pt-8 border-t border-white/5 space-y-4">
-                 <div className="flex justify-between items-center text-[10px] font-mono tracking-widest">
-                   <span className="text-text-subtle">PROVENANCE</span>
-                   <span className="text-brand-gold">CERTIFIED</span>
-                 </div>
-                 <div className="flex justify-between items-center text-[10px] font-mono tracking-widest">
-                   <span className="text-text-subtle">ACQUISITION</span>
-                   <span className="text-brand-gold">IMMEDIATE</span>
-                 </div>
-               </div>
+              <div className="hero-ctas flex gap-6 mt-14 flex-wrap items-center">
+                <Link href="/browse">
+                  <MagneticButton variant="gold" className="px-10 h-14 text-[11px] font-bold uppercase tracking-[0.2em] rounded-full">
+                    Explore Collection
+                  </MagneticButton>
+                </Link>
+                <Link href="/sell">
+                  <MagneticButton variant="ghost" className="px-10 h-14 text-[11px] font-bold uppercase tracking-[0.2em] border-white/10 hover:border-brand-gold/40 rounded-full">
+                    Sell Your Car
+                  </MagneticButton>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -170,7 +140,7 @@ function HeroSection() {
         ref={scrollIndicatorRef}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-[10px] text-text-muted tracking-[0.2em] uppercase">Scroll</span>
+        <span className="text-[11px] text-text-muted tracking-[0.2em] uppercase">Scroll</span>
         <ChevronDown size={18} className="text-text-muted" style={{ animation: 'bounce-scroll 2s ease-in-out infinite' }} />
       </div>
     </section>
@@ -211,29 +181,29 @@ function TrustNumbers() {
   }, []);
 
   const stats = [
-    { number: 200000, suffix: '+', label: 'Authorized Acquisitions', display: '2,00,000' },
-    { number: 10000, suffix: '+', label: 'Portfolio Assets', display: '10,000' },
-    { number: 200, suffix: '', label: 'Technical Verifications', display: '200' },
-    { number: 20, suffix: '+', label: 'Operational Hubs', display: '20' },
+    { number: 200000, suffix: '+', label: 'Happy Customers' },
+    { number: 10000, suffix: '+', label: 'Cars Available' },
+    { number: 200, suffix: '', label: 'Point Inspection' },
+    { number: 20, suffix: '+', label: 'Cities Across India' },
   ];
 
   return (
-    <section ref={sectionRef} className="bg-bg-primary py-40 overflow-hidden border-y border-white/5 relative">
+    <section ref={sectionRef} className="bg-bg-primary py-32 overflow-hidden border-y border-white/5 relative">
       <div className="absolute inset-0 bg-brand-gold/[0.02] pointer-events-none" />
       <div className="max-w-[1400px] mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-          {stats.map((stat, i) => (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          {stats.map((stat) => (
             <div
               key={stat.label}
-              className="glass-elite rounded-[48px] p-12 text-center relative overflow-hidden group hover:luxury-border transition-all duration-1000 ease-luxury shadow-[0_30px_80px_rgba(0,0,0,0.5)]"
+              className="glass-elite rounded-[32px] p-10 text-center relative overflow-hidden group hover:luxury-border transition-all duration-1000 ease-luxury shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
             >
-              <div className="text-stat gold-text-gradient font-display font-black tracking-tighter mb-6">
+              <div className="text-stat gold-text-gradient font-display font-black tracking-tighter mb-4">
                 <span className="stat-number" data-target={stat.number}>
                   0
                 </span>
-                <span className="text-3xl opacity-50 ml-1">{stat.suffix}</span>
+                <span className="text-2xl opacity-50 ml-1">{stat.suffix}</span>
               </div>
-              <p className="text-[9px] font-bold uppercase tracking-[0.4em] text-text-muted group-hover:text-brand-gold transition-colors duration-700">{stat.label}</p>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-text-muted group-hover:text-brand-gold transition-colors duration-700">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -245,27 +215,27 @@ function TrustNumbers() {
 const howItWorksSteps = [
   {
     num: '01',
-    title: 'Discovery',
-    desc: 'Access a curated portfolio of certified automotive assets, rigorously vetted for institutional standards.',
-    icon: <Search className="w-8 h-8 text-brand-gold/60" />,
+    title: 'Browse & Discover',
+    desc: 'Explore our curated collection of 10,000+ certified pre-owned cars. Filter by brand, budget, type, and more.',
+    icon: <Search className="w-8 h-8 text-brand-gold/70" />,
   },
   {
     num: '02',
-    title: 'Verification',
-    desc: 'Every asset undergoes a 200-point forensic technical verification to ensure flawless heritage.',
-    icon: <CheckCircle className="w-8 h-8 text-brand-gold/60" />,
+    title: '200-Point Inspection',
+    desc: 'Every car undergoes a thorough 200-point quality inspection covering engine, body, electricals, and more.',
+    icon: <CheckCircle2 className="w-8 h-8 text-brand-gold/70" />,
   },
   {
     num: '03',
-    title: 'Assessment',
-    desc: 'Experience dynamic dynamic assessments at your preferred location, engineered for absolute transparency.',
-    icon: <Home className="w-8 h-8 text-brand-gold/60" />,
+    title: 'Free Home Test Drive',
+    desc: 'Experience your chosen car at your doorstep. No pressure, no rush — take your time to decide.',
+    icon: <Home className="w-8 h-8 text-brand-gold/70" />,
   },
   {
     num: '04',
-    title: 'Succession',
-    desc: 'Seamless ownership transition with institutional-grade handling of paperwork and RC protocols.',
-    icon: <Key className="w-8 h-8 text-brand-gold/60" />,
+    title: 'Easy Ownership Transfer',
+    desc: 'We handle all the paperwork — RC transfer, insurance, and everything else. Just drive and enjoy.',
+    icon: <Key className="w-8 h-8 text-brand-gold/70" />,
   },
 ];
 
@@ -284,7 +254,7 @@ function HowItWorks() {
             scrollTrigger: {
               trigger: '.how-it-works',
               start: 'top top',
-              end: '+=300%', // Tightened to remove black space
+              end: '+=300%',
               pin: '.how-it-works-inner',
               scrub: 1,
               anticipatePin: 1,
@@ -305,20 +275,8 @@ function HowItWorks() {
               );
             }
           });
-
-          // Dynamic Background Glow
-          gsap.to('.how-it-works-glow', {
-            x: (i) => i * 100, // Moves across steps
-            scrollTrigger: {
-              trigger: '.how-it-works',
-              start: 'top top',
-              end: '+=300%',
-              scrub: 2,
-            }
-          });
         },
         '(max-width: 768px)': function () {
-          // Mobile: simple scroll reveals
           howItWorksSteps.forEach((_, i) => {
             gsap.from(`#step-${i}`, {
               opacity: 0,
@@ -346,16 +304,15 @@ function HowItWorks() {
           className="how-it-works-inner bg-bg-primary flex items-center relative overflow-hidden"
           style={{ height: '100vh' }}
         >
-          {/* Dynamic Background Glow */}
-          <div className="how-it-works-glow absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-brand-gold/5 blur-[150px] rounded-full pointer-events-none" />
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-brand-gold/5 blur-[150px] rounded-full pointer-events-none" />
           
           <div className="max-w-[1400px] mx-auto px-6 w-full relative z-10">
             <div className="flex items-center gap-4 mb-6">
                <div className="w-12 h-[1px] bg-brand-gold/30" />
-               <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold">THE CONCIERGE JOURNEY</p>
+               <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand-gold">HOW IT WORKS</p>
             </div>
             <h2 className="text-display-lg mb-20 tracking-tighter">
-              A Refined Path to<br />Institutional Quality<span className="text-brand-gold">.</span>
+              A Simple Path to<br />Your Dream Car<span className="text-brand-gold">.</span>
             </h2>
             <div className="relative" style={{ minHeight: 300 }}>
               {howItWorksSteps.map((step, i) => (
@@ -366,10 +323,10 @@ function HowItWorks() {
                   style={{ opacity: i === 0 ? 1 : 0 }}
                 >
                   <div className="flex-1 max-w-lg">
-                    <span className="text-display-xl gold-text-gradient block mb-4">
+                    <span className="text-display-xl gold-text-gradient block mb-6">
                       {step.num}
                     </span>
-                    <h3 className="text-display-md text-text-primary mb-4">
+                    <h3 className="text-display-md text-text-primary mb-6">
                       {step.title}
                     </h3>
                     <p className="text-text-muted text-lg leading-relaxed font-body">
@@ -377,7 +334,7 @@ function HowItWorks() {
                     </p>
                   </div>
                   <div className="flex-1 flex items-center justify-center">
-                    <div className="w-64 h-64 rounded-full bg-bg-surface border border-border-default flex items-center justify-center glass shadow-2xl">
+                    <div className="w-56 h-56 rounded-full bg-bg-surface border border-border-default flex items-center justify-center glass shadow-2xl">
                       {step.icon}
                     </div>
                   </div>
@@ -389,7 +346,7 @@ function HowItWorks() {
       </div>
 
       {/* Mobile: stacked cards */}
-      <div className="md:hidden py-20 bg-bg-primary">
+      <div className="md:hidden py-24 bg-bg-primary">
         <div className="max-w-[1400px] mx-auto px-6">
           <p className="text-label text-brand-gold mb-4">HOW IT WORKS</p>
           <h2 className="text-display-lg mb-12">
@@ -400,17 +357,17 @@ function HowItWorks() {
               <div
                 key={step.num}
                 id={`step-${i}`}
-                className="bg-bg-surface border border-border-default rounded-card p-6"
+                className="glass-elite luxury-border rounded-[24px] p-8"
               >
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="text-4xl font-display font-bold gold-text-gradient">
+                <div className="flex items-center gap-5 mb-5">
+                  <span className="text-3xl font-display font-bold gold-text-gradient">
                     {step.num}
                   </span>
-                  <div className="w-16 h-16 rounded-full bg-bg-surface2 flex items-center justify-center glass shadow-lg">
+                  <div className="w-14 h-14 rounded-full bg-bg-surface2 flex items-center justify-center glass shadow-lg">
                     {step.icon}
                   </div>
                 </div>
-                <h3 className="text-xl font-display font-bold text-text-primary mb-2">
+                <h3 className="text-xl font-display font-bold text-text-primary mb-3">
                   {step.title}
                 </h3>
                 <p className="text-text-muted text-sm leading-relaxed">{step.desc}</p>
@@ -456,7 +413,6 @@ function FeaturedCars() {
     const track = trackRef.current;
     if (!track) return;
     track.style.cursor = 'grab';
-    // Momentum
     gsap.to(track, {
       scrollLeft: track.scrollLeft - lastVelocity.current * 8,
       duration: 0.8,
@@ -465,7 +421,6 @@ function FeaturedCars() {
   };
 
   const featuredCars = cars.filter((c) => c.trending).slice(0, 6);
-  // If not enough trending, fill with others
   const displayCars =
     featuredCars.length >= 6
       ? featuredCars
@@ -475,21 +430,21 @@ function FeaturedCars() {
     <section className="py-32 bg-bg-primary border-t border-white/5 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-gold/20 to-transparent" />
       
-      <div className="max-w-[1400px] mx-auto px-6 mb-16">
+      <div className="max-w-[1400px] mx-auto px-6 mb-14">
         <div className="flex items-center gap-4 mb-8 opacity-60">
            <div className="w-12 h-[1px] bg-brand-gold/50" />
-           <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold">ACQUISITION PORTFOLIO</p>
+           <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand-gold">FEATURED CARS</p>
         </div>
         <div className="flex items-end justify-between gap-12">
-          <h2 className="text-display-lg tracking-tighter leading-[0.9]">
-            Selected <br />
-            <span className="italic font-display gold-text-gradient">Heritage Assets</span><span className="text-brand-gold">.</span>
+          <h2 className="text-display-lg tracking-tighter leading-[0.95]">
+            Handpicked <br />
+            <span className="italic font-display gold-text-gradient">Premium Cars</span><span className="text-brand-gold">.</span>
           </h2>
           <Link
             href="/browse"
-            className="hidden md:inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-brand-gold hover:text-white transition-all group"
+            className="hidden md:inline-flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-gold hover:text-white transition-all group"
           >
-            DISCOVER ENTIRE REPOSITORY
+            View All Cars
             <div className="w-8 h-[1px] bg-brand-gold/30 group-hover:w-12 group-hover:bg-white transition-all" />
           </Link>
         </div>
@@ -507,7 +462,7 @@ function FeaturedCars() {
           onMouseLeave={handleMouseUp}
         >
           {displayCars.map((car) => (
-            <div key={car.id} className="min-w-[320px] max-w-[320px] flex-shrink-0">
+            <div key={car.id} className="min-w-[340px] max-w-[340px] flex-shrink-0">
               <CarCard car={car} />
             </div>
           ))}
@@ -553,10 +508,10 @@ function SpinnyAssured() {
   }, []);
 
   const features = [
-    { icon: '🛡️', title: '200-Point Inspection', desc: 'Rigorous quality checks covering engine, body, electricals, and more.' },
-    { icon: '↩️', title: '5-Day Money Back', desc: "Not satisfied? Return the car within 5 days. No questions asked." },
-    { icon: '📋', title: 'Free RC Transfer', desc: 'We handle all the paperwork. Hassle-free ownership transfer.' },
-    { icon: '🏠', title: 'Home Test Drive', desc: 'Experience the car at your doorstep before making a decision.' },
+    { icon: <Shield className="w-7 h-7 text-brand-gold" />, title: '200-Point Inspection', desc: 'Rigorous quality checks covering engine, body, electricals, transmission, and more.' },
+    { icon: <RotateCcw className="w-7 h-7 text-brand-gold" />, title: '5-Day Money Back', desc: "Not satisfied? Return the car within 5 days, no questions asked. Full refund guaranteed." },
+    { icon: <FileCheck className="w-7 h-7 text-brand-gold" />, title: 'Free RC Transfer', desc: 'We handle all the paperwork. Hassle-free ownership transfer included at no extra cost.' },
+    { icon: <Car className="w-7 h-7 text-brand-gold" />, title: 'Home Test Drive', desc: 'Experience the car at your doorstep before making a decision. Totally free of charge.' },
   ];
 
   return (
@@ -565,25 +520,25 @@ function SpinnyAssured() {
       className="py-32 relative overflow-hidden border-y border-white/5"
     >
       <div className="max-w-[1400px] mx-auto px-6">
-        <div className="text-center mb-24">
-            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-gold mb-6">THE GOLD STANDARD</p>
-            <h2 className="text-display-lg mb-8 tracking-tighter">Uncompromising Quality.</h2>
+        <div className="text-center mb-20">
+            <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand-gold mb-5">WHY SPINNY</p>
+            <h2 className="text-display-lg mb-6 tracking-tighter">Uncompromising Quality.</h2>
             <p className="text-text-muted text-lg max-w-2xl mx-auto font-body leading-relaxed opacity-80">
-              Every vehicle in our collection undergoes a rigorous 200-point mechanical 
-              and physical evaluation to meet our institutional standards.
+              Every car in our collection undergoes a rigorous 200-point inspection 
+              to meet our high standards before reaching you.
             </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((f) => (
             <div
               key={f.title}
-              className="assured-feature glass rounded-[40px] p-10 text-left luxury-border-transparent hover:luxury-border transition-all duration-700 group"
+              className="assured-feature glass-elite rounded-[28px] p-8 text-left luxury-border-transparent hover:luxury-border transition-all duration-700 group"
             >
-              <div className="w-14 h-14 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform duration-500">
+              <div className="w-14 h-14 rounded-2xl bg-brand-gold/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
                 {f.icon}
               </div>
-              <h3 className="text-xl font-display font-black text-text-primary mb-4 tracking-tight">{f.title}</h3>
+              <h3 className="text-lg font-display font-black text-text-primary mb-3 tracking-tight">{f.title}</h3>
               <p className="text-text-muted text-sm leading-relaxed opacity-70 group-hover:opacity-100 transition-opacity">
                 {f.desc}
               </p>
@@ -604,6 +559,7 @@ function Testimonials() {
       quote: "The entire experience was seamless. From browsing to getting the car delivered at my doorstep — Spinny made it feel effortless. Can't recommend enough!",
       rating: 5,
       city: 'Delhi',
+      initials: 'RS',
     },
     {
       name: 'Priya Menon',
@@ -611,6 +567,7 @@ function Testimonials() {
       quote: "I was skeptical about buying a used EV, but the 200-point inspection report gave me complete confidence. The car was in pristine condition!",
       rating: 5,
       city: 'Bangalore',
+      initials: 'PM',
     },
     {
       name: 'Aditya Patel',
@@ -618,34 +575,44 @@ function Testimonials() {
       quote: 'Found a luxury car at an incredible price. The transparency in pricing and condition report was unlike anything I had seen before. Spinny is the real deal.',
       rating: 5,
       city: 'Mumbai',
+      initials: 'AP',
     },
   ];
 
   return (
-    <section className="py-24 bg-bg-primary">
+    <section className="py-32 bg-bg-primary">
       <div className="max-w-[1400px] mx-auto px-6">
-        <p className="text-label text-brand-gold mb-4">TESTIMONIALS</p>
-        <h2 className="text-display-md mb-12">What Our Customers Say.</h2>
+        <div className="text-center mb-16">
+          <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand-gold mb-5">TESTIMONIALS</p>
+          <h2 className="text-display-lg tracking-tighter">What Our Customers Say.</h2>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((t) => (
             <div
               key={t.name}
-              className="bg-bg-surface border border-border-default rounded-card p-8 card-hover"
+              className="glass-elite luxury-border rounded-[28px] p-10 card-hover group relative overflow-hidden"
             >
-              <div className="flex gap-1 mb-4">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/[0.04] blur-[60px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+              
+              <div className="flex gap-1 mb-6 relative z-10">
                 {Array.from({ length: t.rating }).map((_, i) => (
-                  <span key={i} className="text-brand-gold text-sm">★</span>
+                  <span key={i} className="text-brand-gold text-lg" style={{ textShadow: '0 0 10px rgba(197,160,89,0.4)' }}>★</span>
                 ))}
               </div>
-              <p className="text-text-primary text-sm leading-relaxed mb-6 font-body italic">
+              <p className="text-text-primary text-base leading-relaxed mb-8 font-body italic relative z-10">
                 &ldquo;{t.quote}&rdquo;
               </p>
-              <div>
-                <p className="font-display font-bold text-text-primary">{t.name}</p>
-                <p className="text-text-muted text-xs mt-1">
-                  Bought {t.car} · {t.city}
-                </p>
+              <div className="flex items-center gap-4 relative z-10">
+                <div className="w-12 h-12 rounded-full gold-gradient flex items-center justify-center text-sm font-bold text-bg-primary">
+                  {t.initials}
+                </div>
+                <div>
+                  <p className="font-display font-bold text-text-primary text-base">{t.name}</p>
+                  <p className="text-text-muted text-sm mt-0.5">
+                    {t.car} · {t.city}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
@@ -657,46 +624,47 @@ function Testimonials() {
 
 /* ===================== BRAND GRID ===================== */
 function BrandGrid() {
-  const brands = [
-    'Maruti Suzuki', 'Hyundai', 'Tata', 'Honda', 'Toyota',
-    'Mahindra', 'Ford', 'Kia', 'Volkswagen', 'Skoda',
-    'Renault', 'BMW', 'Audi', 'Jeep', 'MG',
+  const brandData = [
+    { name: 'Maruti Suzuki', short: 'Maruti Suzuki', monogram: 'S' },
+    { name: 'Hyundai', short: 'Hyundai', monogram: 'H' },
+    { name: 'Tata', short: 'Tata Motors', monogram: 'T' },
+    { name: 'Honda', short: 'Honda', monogram: 'H' },
+    { name: 'Toyota', short: 'Toyota', monogram: 'T' },
+    { name: 'Mahindra', short: 'Mahindra', monogram: 'M' },
+    { name: 'Ford', short: 'Ford', monogram: 'F' },
+    { name: 'Kia', short: 'Kia', monogram: 'K' },
+    { name: 'Volkswagen', short: 'Volkswagen', monogram: 'VW' },
+    { name: 'Skoda', short: 'Škoda', monogram: 'Š' },
+    { name: 'Renault', short: 'Renault', monogram: 'R' },
+    { name: 'BMW', short: 'BMW', monogram: 'BMW' },
+    { name: 'Audi', short: 'Audi', monogram: 'A' },
+    { name: 'Jeep', short: 'Jeep', monogram: 'J' },
+    { name: 'MG', short: 'MG Motor', monogram: 'MG' },
   ];
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = e.currentTarget;
-    const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    el.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
-  };
-
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.currentTarget.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg)';
-  };
-
   return (
-    <section className="py-24 bg-[#0D0D0D]">
+    <section className="py-32 bg-[#080808] border-y border-white/5">
       <div className="max-w-[1400px] mx-auto px-6">
-        <p className="text-label text-brand-gold mb-4 text-center">POPULAR BRANDS</p>
-        <h2 className="text-display-md text-center mb-12">Explore by Brand.</h2>
+        <div className="text-center mb-16">
+          <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand-gold mb-5">POPULAR BRANDS</p>
+          <h2 className="text-display-lg tracking-tighter">Explore by Brand.</h2>
+        </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-          {brands.map((brand) => (
-            <Link href={`/browse?brand=${encodeURIComponent(brand)}`} key={brand}>
+        <div className="grid grid-cols-3 md:grid-cols-5 gap-5">
+          {brandData.map((brand) => (
+            <Link href={`/browse?brand=${encodeURIComponent(brand.name)}`} key={brand.name}>
               <div
-                className="glass rounded-2xl p-8 text-center transition-all duration-500 ease-luxury hover:border-brand-gold/40 cursor-pointer card-hover"
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                style={{ transition: 'transform 0.1s ease-out, border-color 0.3s ease' }}
-                data-cursor
+                className="glass-elite rounded-[20px] p-6 text-center transition-all duration-500 ease-luxury hover:luxury-border cursor-pointer card-hover group relative overflow-hidden"
               >
-                <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-bg-surface2/50 flex items-center justify-center border border-white/5 shadow-inner">
-                  <span className="text-xl font-display font-black gold-text-gradient">
-                    {brand[0]}
+                <div className="absolute inset-0 bg-brand-gold/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                
+                {/* Brand Monogram Logo */}
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center group-hover:border-brand-gold/30 group-hover:bg-brand-gold/[0.08] transition-all duration-700 relative z-10">
+                  <span className={`font-display font-black gold-text-gradient tracking-tight ${brand.monogram.length > 2 ? 'text-base' : brand.monogram.length > 1 ? 'text-xl' : 'text-2xl'}`}>
+                    {brand.monogram}
                   </span>
                 </div>
-                <span className="text-sm font-body font-semibold tracking-wide text-text-muted hover:text-brand-gold transition-colors">{brand}</span>
+                <p className="text-sm font-semibold tracking-wide text-text-muted group-hover:text-brand-gold transition-colors duration-500 relative z-10">{brand.short}</p>
               </div>
             </Link>
           ))}
@@ -710,26 +678,25 @@ function BrandGrid() {
 function CTASection() {
   return (
     <section className="py-40 relative overflow-hidden">
-      {/* Background Glow */}
       <div className="absolute inset-0 bg-bg-primary" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-brand-gold/10 blur-[120px] rounded-full pointer-events-none" />
       
       <div className="max-w-[1400px] mx-auto px-6 text-center relative z-10">
-        <div className="glass p-16 rounded-[40px] border-white/5 inline-block w-full max-w-5xl">
-          <p className="text-label text-brand-gold mb-6 tracking-[0.2em]">GET STARTED</p>
-          <h2 className="text-display-lg mb-6 leading-tight">Ready to Find Your<br />Perfect Car?</h2>
-          <p className="text-text-muted text-xl mb-12 max-w-2xl mx-auto font-body leading-relaxed">
-            Join 2,00,000+ happy customers who found their dream car on Spinny. <br className="hidden md:block" />
+        <div className="glass-elite luxury-border p-16 rounded-[40px] w-full max-w-4xl mx-auto">
+          <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-brand-gold mb-5">GET STARTED</p>
+          <h2 className="text-display-lg mb-6 leading-tight tracking-tighter">Ready to Find Your<br />Perfect Car?</h2>
+          <p className="text-text-muted text-lg mb-12 max-w-2xl mx-auto font-body leading-relaxed">
+            Join 2,00,000+ happy customers who found their dream car on Spinny. 
             Experience a new standard of trust and quality.
           </p>
-          <div className="flex gap-8 justify-center flex-wrap items-center mt-4">
+          <div className="flex gap-6 justify-center flex-wrap items-center">
             <Link href="/browse">
-              <MagneticButton variant="gold" className="px-12 py-6 text-xl shadow-[0_0_50px_rgba(201,168,76,0.3)]">
+              <MagneticButton variant="gold" className="px-10 py-5 text-base shadow-[0_0_50px_rgba(201,168,76,0.3)]">
                 Browse 10,000+ Cars →
               </MagneticButton>
             </Link>
             <Link href="/sell">
-              <MagneticButton variant="outline" className="px-12 py-6 text-xl border-white/20">
+              <MagneticButton variant="outline" className="px-10 py-5 text-base border-white/20">
                 Sell Your Car
               </MagneticButton>
             </Link>
@@ -743,7 +710,7 @@ function CTASection() {
 /* ===================== HOME PAGE ===================== */
 export default function HomePage() {
   useEffect(() => {
-    // Global Reveal Observer for "Luxury" Entrance
+    gsap.registerPlugin(ScrollTrigger);
     const reveals = document.querySelectorAll('.reveal');
     reveals.forEach((el) => {
       gsap.from(el, {
